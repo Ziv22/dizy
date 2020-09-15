@@ -1,8 +1,8 @@
 class Render {
-    renderContent = function(templateDiv, data = []) {
+    renderContent = function(templateDiv) {
         const src = $(templateDiv).html()
         const template = Handlebars.compile(src)
-        const newHTML = template({data})
+        const newHTML = template()
         $('.container-fluid').empty().append(newHTML)
     }
 }
