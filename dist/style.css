@@ -4,6 +4,7 @@
   .container-fluid {
     margin: 0;
   }
+  /* ------- login page style -------*/
   #login-container {
     background-color: #56baed;
     font-family: "Poppins", sans-serif;
