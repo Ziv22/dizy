@@ -73,7 +73,8 @@ class User {
     }
 
     async getAllInterests() {
-        const AllInterests = await $.get('/interests')
+        let AllInterests = await $.get('/interests')
+        AllInterests = AllInterests.splice(21, 6000)
         return AllInterests
     }
 

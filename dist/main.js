@@ -38,7 +38,9 @@ $('.container-fluid').on('click', '#next-sign-up', async function() {
     address['number'] = number
     newUserObject = {firstName, lastName, address, contactDetails: {phone, email}, password}
     user.saveUserDetails(newUserObject)
-    render.renderContent('#search-activities-template')
+    const allInterests = await user.getAllInterests()
+    console.log(allInterests)
+    render.renderContent('#interest-template', allInterests)
 })
 
 $('.container-fluid').on('click', '#submit-sign-up', async function() {
