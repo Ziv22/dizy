@@ -12,24 +12,23 @@ router.post('/user', async (req, res) => {
 })
 
 router.get('/user/:email/:password', async (req, res) => {
-    try {
         const userEmail = req.params.email
         const userPassword = req.params.password
-        const findUserByEmailAndPassword = User.find({ $and: [{ "contactDetails.email": userEmail }, { password: userPassword }] })
-
-        const user = await findUserByEmailAndPassword
-        res.send(user)
-    }
-    catch (err) {
-        res.send(err)
-    }
+        const findUserByEmailAndPassword = User.findOne({ $and: [{ "contactDetails.email": userEmail }, { password: userPassword }] })
+        findUserByEmailAndPassword.exec(function(err, user) {   
+            if (err) {
+                res.send(err)
+            } else{
+                res.send(user)
+            }
+        })
 })
 
 router.put('/user/:userId', async (req, res) => {
     try {
         const userId = req.params.userId
         const updatedData = req.body
-        const updatedUser = await User.findByIdAndUpdate(userId, updatedData)
+        const updatedUser = await User.findByIdAndUpdate(userId, updatedData, { new : true })
         const savedUpdatedUser = await updatedUser.save()
         res.send(savedUpdatedUser)
     }

@@ -15,15 +15,13 @@ router.put('/activity/:userId/:activityId', async (req ,res) =>{
     try{
         const   userId          = req.params.userId
         const   activityId      = req.params.activityId
-
-        const   foundUser       = utils.findUserById(userId)
-        const   foundActivity   = utlis.findActivityById(activityId)
-
-        foundUser.activites.participant.push(foundUser)
-        foundActivity.participants.push(foundActivity)
+        const   foundUser       = await utils.findUserById(userId)
+        const findingActivity = await utils.findActivityById(activityId)
+        foundUser.activites.participant.push(findingActivity)
+        findingActivity.participants.push(foundUser)
         
         await foundUser.save()
-        const updatedActivity = await foundActivity.save()
+        const updatedActivity = await findingActivity.save()
 
         res.send(updatedActivity)
     }
