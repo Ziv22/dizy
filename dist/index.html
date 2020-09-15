@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="style.css">
     <title>Dizy App</title>
 </head>
 
-<body> 
+<body>
     <div class="container-fluid">
-          <script id='log-in-template' type="text/x-handlebars-template"> 
+         <script id='log-in-template' type="text/x-handlebars-template"> 
              <div id="login-container">
                 <div class="wrapper fadeInDown">
                     <div id="formContent">
@@ -31,54 +32,81 @@
                     </div>
                 </div>
             </div>
-        </script>  
+        </script>   
 
-          <script id='sign-up-template' type="text/x-handlebars-template">
-            <div id="sign-up-container">
+        <script id='sign-up-template' type="text/x-handlebars-template">
+         <div id="sign-up-container">
+            <div class="wrapper fadeInDown">
                 <div id="formContent">
-                        
+
                     <div class="fadeIn first">
+
                         <img src="./source/logo.png" id="icon" alt="User Icon" />
+
                     </div>
 
                     <form>
-                        <input type="text" id="email" class="fadeIn second" name="login" placeholder="enter email">
-                        <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
-                        <div id="address" class="fadeIn second">
-                            <input type="text" id="country" placeholder="country">
-                            <input type="text" id="city" placeholder="city">
-                            <input type="text" id="street" placeholder="street">
+                        <div class="fadeIn second">
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="text" id="fname" placeholder="first name" class="form-control">
+                                </div>
+                                <div class="col">
+                                    <input type="text" id="lname" placeholder="last name" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="text" id="country" placeholder="country" class="form-control">
+                                </div>
+                                <div class="col">
+                                    <input type="text" id="city" placeholder="city" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="text" id="street" placeholder="street" class="form-control">
+                                </div>
+                                <div class="col">
+                                    <input type="text" id="number" placeholder="number" class="form-control">
+                                </div>
+                            </div>
+
+                            <input type="text" id="email" name="login" placeholder="enter email">
+                            <input type="text" id="password" name="login" placeholder="password">
                         </div>
-                        <input type="text" id="street">
-                        <input type="submit" class="fadeIn fourth" value="sign up" id="sign-up-submit">
+                        
+                        
+                        <input type="submit" class="fadeIn fourth" value="continue" id="next-sign-up">
 
                     </form>
 
-                    <div id="formFooter">
-                        <a class="underlineHover" href="#">New User?</a>
-                    </div>
+                   
                 </div>
             </div>
+        </div>
 
-            </div>
-        </script>  
-         <script id='search-activities-template' type="text/x-handlebars-template">
-            
-        </script> 
-         <script id='welcome-page-template' type="text/x-handlebars-template">
-            
-        </script> 
-         <script id='my-profile-template' type="text/x-handlebars-template">
-            
-        </script> 
-         <script id='edit-profile-template' type="text/x-handlebars-template">
-            
-        </script> 
-         <script id='create-activity-template' type="text/x-handlebars-template">
-            
-        </script> 
+    </div> 
+    </script>  
+    
+    <script id='search-activities-template' type="text/x-handlebars-template">
+
+        </script>
+    <script id='welcome-page-template' type="text/x-handlebars-template">
+
+        </script>
+    <script id='my-profile-template' type="text/x-handlebars-template">
+
+        </script>
+    <script id='edit-profile-template' type="text/x-handlebars-template">
+
+        </script>
+    <script id='create-activity-template' type="text/x-handlebars-template">
+
+        </script>
 
     </div>
+
             <script src="jquery/dist/jquery.js"></script>
             <script src="bootstrap/dist/js/bootstrap.js"></script>
             <script src="bootstrap/dist/css/bootstrap.css"></script>
