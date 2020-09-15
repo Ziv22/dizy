@@ -1,5 +1,6 @@
-const express   = require("express")
-const router    = express.Router()
+const   express     = require("express"),
+        router      = express.Router(),
+        User        = require("../model/User") 
 
 router.get('/user', (req, res)=>{
     res.send("Welcome to User route")
