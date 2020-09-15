@@ -13,13 +13,32 @@ router.post('/activity', async (req, res) =>{
 
 router.put('/activity/:userId/:activityId', async (req ,res) =>{
     try{
-        const   userId      = req.params.userId,
-                activityId  = req.params.activityId
+        const   userId          = req.params.userId
+        const   activityId      = req.params.activityId
+        
+        const   foundUser       = utils.findUserById(userId)
+        const   foundActivity   = utlis.findActivityById(activityId)
 
-        const   foundUser   = utils.findUserById(userId)
-        foundUser.activites.participant.push(activityId)
+        foundUser.activites.participant.push(foundUser)
+        foundActivity.participants.push(foundActivity)
+        
         const updatedUser = await foundUser.save()
-        res.send(updatedUser)
+        const updatedActivity = await foundActivity.save()
+
+        res.send(updatedActivity)
+    }
+    catch(err){
+        res.send(err)
+    }
+})
+
+router.delete('/activity/:activityId', async (req, res) =>{
+    try{
+        const activityId            = req.params.activityId
+        const foundActivity         = utils.findActivityById(activityId)
+        foundActivity.isHappening   = false
+        const deletedActivity       = await foundActivity.save()
+        res.send(deletedActivity)
     }
     catch(err){
         res.send(err)
