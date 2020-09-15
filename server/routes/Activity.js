@@ -45,9 +45,21 @@ router.delete('/activity/:activityId', async (req, res) =>{
     }
 })
 
-
 router.get('/activity', (req, res)=>{
-    res.send("Welcome to Activity route")
+    try{
+        const activities = []
+
+        const   startDate   = req.query.startDate,
+                endDate     = req.query.endDate,
+                tags        = req.query.tags,
+                city        = req.query.city,
+                name        = req.query.name
+        
+        res.send(activities)
+    }
+    catch(err){
+        res.send(err)
+    }
 })
 
 module.exports = router
