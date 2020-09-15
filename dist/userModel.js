@@ -27,14 +27,13 @@ class User {
         if(userInDb.name === 'Error') {
             return false
         }
-        saveUserDetails(userInDb)
+        this.saveUserDetails(userInDb)
         return true
     }
 
     /*making a post request to the server with all the data from 
     the user and saves it to the user variables */
     async createUser(userObj)  {
-        saveUserDetails(userObj)
         const newUsrInDb = await $.post('/user', userObj)
         this.id = newUsrInDb['_id']
     }
@@ -72,7 +71,7 @@ class User {
     async searchActivity(searchObj) {
         const { startDate, endDate, tags, city, name } = searchObj //if a data is not given it will send undifined
         const stringTags = JSON.stringify(tags)
-        const queryParams = `startDate=${startDate}&endDate=${endDate}&tags=${stringTags}&city=${city}&name=${name}`
+        const queryParams = `startDate=${startDate}&endDate=${endDate}&tags=${stringTags}&location.city=${city}&name=${name}`
         const requiredActivities = await $.get(`/activity/?${queryParams}`)
         this.searchedActivities = requiredActivities
     }
