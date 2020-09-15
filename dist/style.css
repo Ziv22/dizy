@@ -12,6 +12,14 @@
     margin: 0;
     
     }
+
+    /* ------ signup page style -------*/
+    #sign-up-container {
+        background-color: #56baed;
+        font-family: "Poppins", sans-serif;
+        height: 100vh;
+        margin: 0;
+        }
     
     a {
       color: #92badd;
