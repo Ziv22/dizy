@@ -1,15 +1,14 @@
 const user = new User()
 const render = new Render()
 
-const geoApi = 'https://api.opencagedata.com/geocode/v1/google-v3-json?address='
+const geoApi = 'https://api.opencagedata.com/geocode/v1/google-v3-json?'
 const geoApiKey = 'key=ac11ef55b14243e994013f4b5df1beac'
 const getGeoLocation = async function(country, city, street, number) {
-    const apiParams = `${number}+${street}%2C+${city}+%2C+${country}`
+    const apiParams = `address=${number}+${street}%2C+${city}+%2C+${country}`
     const apiRequest = await $.get(`${geoApi}${apiParams}&${geoApiKey}`) 
     const objToSend = { lat: apiRequest.results[0].geometry.location.lat, 
-        lng: apiRequest.results[0].geometry.location.lat
+        lng: apiRequest.results[0].geometry.location.lng
     }
-    console.log(objToSend)
     return objToSend
 }
 
@@ -32,12 +31,15 @@ $('.container-fluid').on('click', '#next-sign-up', async function() {
             email = $('#email-signup').val(),
             password = $('#password-signup').val()
 
-    const   address = await getGeoLocation(number, country, city, street),
-            contactDetails = {phone, email},
-            newUserObject = {firstName, lastName, address, contactDetails, password}
+    const   address = await getGeoLocation(country, city, street, number)
+    address['country'] = country
+    address['city'] = city
+    address['street'] = street
+    address['number'] = number
+    newUserObject = {firstName, lastName, address, contactDetails: {phone, email}, password}
     console.log(newUserObject)
     // await user.createUser(newUserObject)
-    // render.renderContent('#welcome-page-template', user)
+    render.renderContent('#search-activities-template')
 })
 
 $('.container-fluid').on('click', '#log-in-submit', function() {
