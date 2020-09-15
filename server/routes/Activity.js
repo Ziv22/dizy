@@ -15,14 +15,14 @@ router.put('/activity/:userId/:activityId', async (req ,res) =>{
     try{
         const   userId          = req.params.userId
         const   activityId      = req.params.activityId
-        
+
         const   foundUser       = utils.findUserById(userId)
         const   foundActivity   = utlis.findActivityById(activityId)
 
         foundUser.activites.participant.push(foundUser)
         foundActivity.participants.push(foundActivity)
         
-        const updatedUser = await foundUser.save()
+        await foundUser.save()
         const updatedActivity = await foundActivity.save()
 
         res.send(updatedActivity)
@@ -44,6 +44,7 @@ router.delete('/activity/:activityId', async (req, res) =>{
         res.send(err)
     }
 })
+
 
 router.get('/activity', (req, res)=>{
     res.send("Welcome to Activity route")
