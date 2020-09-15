@@ -54,7 +54,11 @@ router.get('/activity', (req, res)=>{
                 tags        = req.query.tags,
                 city        = req.query.city,
                 name        = req.query.name
-        
+                
+        // {"location.city":city}
+        // {"location.name": { "$regex": name, "$options": "i" }
+        // {"location.name": { "$regex": name, "$options": "i" }
+        Activity.find()
         res.send(activities)
     }
     catch(err){
