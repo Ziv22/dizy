@@ -5,6 +5,7 @@ const   express     = require("express"),
 router.post('/activity', async (req, res) =>{
     const   activity      = new Activity(req.body),
             saveActivity  = await activity.save()
+            
     res.send(saveActivity)
 })
 
