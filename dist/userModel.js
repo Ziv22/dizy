@@ -2,7 +2,8 @@ class User {
 
     constructor() {
         this.id = ''
-        this.name = ''
+        this.firstName = ''
+        this.lastName = ''
         this.address = {}
         this.contactDetails = {}
         this.password = ''
@@ -12,7 +13,8 @@ class User {
 
     saveUserDetails(userObj) {
         this.id = userObj['_id'] || ''
-        this.name = userObj.name
+        this.firstName = userObj.firstName
+        this.lastName = userObj.lastName
         this.address = userObj.address
         this.contactDetails = userObj.contactDetails
         this.password = userObj.password
@@ -41,7 +43,7 @@ class User {
     according to the user id and updates the user's variables. */
     async updateUserData(updatedUserObject) {
         const updatedUser = await $.ajax({
-            method = 'PUT',
+            method: 'PUT',
             url: '/user',
             data: updatedUserObject
         })
@@ -68,7 +70,7 @@ class User {
     /*sends a get request to the server  with the required details and 
     returns an array of the activities results  */
     async searchActivity(searchObj) {
-        const { startDate, endDate, tags, city, name } = searchObj
+        const { startDate, endDate, tags, city, name } = searchObj //if a data is not given it will send undifined
         const stringTags = JSON.stringify(tags)
         const queryParams = `startDate=${startDate}&endDate=${endDate}&tags=${stringTags}&city=${city}&name=${name}`
         const requiredActivities = await $.get(`/activity/?${queryParams}`)

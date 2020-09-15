@@ -9,6 +9,7 @@ const UserSchema = new Schema({
         country: String,
         city: String,
         street:String,
+        number: String,
         lat: Number,
         lng: Number
     },
@@ -17,10 +18,10 @@ const UserSchema = new Schema({
         email:String
      },
     password: String,
-    interests: [], //reference to: activity-ids
+    interests: [{type: Schema.Types.ObjectId, ref:"Activity"}], //reference to: activity-ids
     activites:{
-        creator:[], //reference to: activity-ids
-        participant: [] //reference to: activity-ids
+        creator:[{type: Schema.Types.ObjectId, ref:"Activity"}], //reference to: activity-ids
+        participant: [{type: Schema.Types.ObjectId, ref:"Activity"}] //reference to: activity-ids
 }
 })
 

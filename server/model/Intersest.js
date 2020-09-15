@@ -10,3 +10,10 @@ const InterestSchema = new Schema({
 const Interest = mongoose.model("Interest", InterestSchema)
 
 module.exports = Interest
+
+const newInterest = {
+    tagName: "Basketball"
+}
+const dummyInterest = new Interest(newInterest)
+
+dummyInterest.save()
