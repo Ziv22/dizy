@@ -28,6 +28,10 @@
       font-weight: 400;
     }
     
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> master
     h2 {
       text-align: center;
       font-size: 16px;
@@ -46,7 +50,19 @@
       justify-self: center;
       margin: 15px;
     }
+<<<<<<< HEAD
+
+    .show-login-error {
+      visibility: visible;
+    }
+    
+=======
+>>>>>>> master
+    
+    
+=======
        
+>>>>>>> master
     /* STRUCTURE */
     
     .wrapper {
