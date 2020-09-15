@@ -30,7 +30,8 @@ const User = mongoose.model("User", UserSchema)
 module.exports = User
 
 const newUser = {
-    name: "Dizy",
+    firstName: "Dizy",
+    lastName: "",
     address: {
         country: "Israel",
         city: "Tel-aviv",
