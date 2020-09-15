@@ -16,8 +16,8 @@ router.put('/activity/:userId/:activityId', async (req ,res) =>{
         const   userId          = req.params.userId
         const   activityId      = req.params.activityId
 
-        const   foundUser       = utils.findUserById(userId)
-        const   foundActivity   = utlis.findActivityById(activityId)
+        const   foundUser       = await utils.findUserById(userId)
+        const   foundActivity   = await utlis.findActivityById(activityId)
 
         foundUser.activites.participant.push(foundUser)
         foundActivity.participants.push(foundActivity)
@@ -35,7 +35,7 @@ router.put('/activity/:userId/:activityId', async (req ,res) =>{
 router.delete('/activity/:activityId', async (req, res) =>{
     try{
         const activityId            = req.params.activityId
-        const foundActivity         = utils.findActivityById(activityId)
+        const foundActivity         = await utils.findActivityById(activityId)
         foundActivity.isHappening   = false
         const deletedActivity       = await foundActivity.save()
         res.send(deletedActivity)
@@ -45,23 +45,45 @@ router.delete('/activity/:activityId', async (req, res) =>{
     }
 })
 
-router.get('/activity', (req, res)=>{
+router.get('/activity', async (req, res)=>{
     try{
         const activities = []
+        let {startDate, endDate, tags, city, name }  = req.query
+        
+        // const foundActivity = await Activity.find({...req.query})
+        // res.send(foundActivity)
+       
+        const getQuery = () =>{
+            let query = `$and:[`
+            if(city){
+                query+= `{location.city=${city}},`
+            }
+            if(name){
+                query += `{"name": { "$regex": ${name}, "$options": "i" },`
+            }
+            if(startDate  && !endDate){
+                query += `{"date": $gt:{${startDate}}},`
+            }
+            if(startDate && endDate){
+                query += `{$and:[{"date": {$gt:${startDate}}, {"date": {$lt:${endDate}}]},`
+            }
+            if(!startDate && endDate){
+                query += `{$and:[{"date":  {$gt:${Date.now()}}, {"date": {$lt:${endDate}}]},`
+            }
+            query = query.slice(0,-1) + `]`
+            return query
+        }
 
-        const   startDate   = req.query.startDate,
-                endDate     = req.query.endDate,
-                tags        = req.query.tags,
-                city        = req.query.city,
-                name        = req.query.name
-                
-        // {"location.city":city}
-        // {"location.name": { "$regex": name, "$options": "i" }
-        // {"location.name": { "$regex": name, "$options": "i" }
-        Activity.find()
-        res.send(activities)
+        
+        
+
+        // const parsedTags =  JSON.parse(tags)
+        // $and: [{"date": {$gt:startDate}, {"date": {$lt:endDate}]
+        // $and: [{"date": {$gt:<<<<NOW>>>>}, {"date": {$lt:endDate}]
+        // res.send(activities)
+        res.send(getQuery())
     }
-    catch(err){
+    catch(err){ 
         res.send(err)
     }
 })
