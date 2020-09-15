@@ -12,88 +12,98 @@
 <body>
     <div class="container-fluid">
     </div>
-        <script id='log-in-template' type="text/x-handlebars-template"> 
-            <div id="login-container">
-                <div class="wrapper fadeInDown">
-                    <div id="formContent">
-                    
-                        <div class="fadeIn first">
-                            <img src="./source/logo.png" id="icon" alt="User Icon" />
-                        </div>
-
-                        <input type="text" id="email-login" class="fadeIn second" placeholder="enter email">
-                        <input type="text" id="password-login" class="fadeIn third" placeholder="password">
-                        <input type="submit" class="fadeIn fourth" id="log-in-submit">
-
-                        <div id="formFooter" class="new-user">
-                            <a class="underlineHover" href='#'>New User?</a>
-                        </div>
+    <script id='log-in-template' type="text/x-handlebars-template"> 
+        <div id="login-container">
+            <div class="wrapper fadeInDown">
+                <div id="formContent">
+                    <div class="fadeIn first">
+                        <img src="./source/logo.png" id="icon" alt="User Icon" />
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="email-login" class="fadeIn second form-control" placeholder="enter email">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="password-login" class="fadeIn third form-control" placeholder="password">
+                    </div>
+                    <div class="forn-group fadeIn fourth">
+                        <button type="submit" id="log-in-submit" class="btn btn-primary">Login</button>
+                    </div>
+                    <div id="formFooter" class="new-user">
+                        <a class="underlineHover" >New User?</a>
                     </div>
                 </div>
             </div>
-        </script>   
+        </div>
+    </script>   
 
-        <script id='sign-up-template' type="text/x-handlebars-template">
-            <div id="sign-up-container">
-                <div class="wrapper fadeInDown">
-                    <div id="formContent">
-                        <div class="fadeIn first">
-                            <img src="./source/logo.png" id="icon" alt="User Icon" />
+    <script id='sign-up-template' type="text/x-handlebars-template">
+        <div id="sign-up-container">
+            <div class="wrapper fadeInDown">
+                <div id="formContent">
+                    <div class="fadeIn first">
+                        <img src="./source/logo.png" id="icon" alt="User Icon" />
+                    </div>
+
+                    <div class="fadeIn second">
+                        <div class="form-group form-row">
+                            <div class="col">
+                                <input type="text" id="fname" placeholder="first name" class="form-control">
+                            </div>
+                            <div class="col">
+                                <input type="text" id="lname" placeholder="last name" class="form-control">
+                            </div>
                         </div>
-
-                        <div class="fadeIn second">
-                            <div class="form-row">
-                                <div class="col">
-                                    <input type="text" id="fname" placeholder="first name" class="form-control">
-                                </div>
-                                <div class="col">
-                                    <input type="text" id="lname" placeholder="last name" class="form-control">
-                                </div>
+                        <div class="form-group form-row">
+                            <div class="col">
+                                <input type="text" id="country" placeholder="country" class="form-control">
                             </div>
-                            <div class="form-row">
-                                <div class="col">
-                                    <input type="text" id="country" placeholder="country" class="form-control">
-                                </div>
-                                <div class="col">
-                                    <input type="text" id="city" placeholder="city" class="form-control">
-                                </div>
+                            <div class="col">
+                                <input type="text" id="city" placeholder="city" class="form-control">
                             </div>
-                            <div class="form-row">
-                                <div class="col">
-                                    <input type="text" id="street" placeholder="street" class="form-control">
-                                </div>
-                                <div class="col">
-                                    <input type="text" id="number" placeholder="number" class="form-control">
-                                </div>
-                            </div>
-
-                            <input type="text" id="phone" placeholder="enter phone">
-                            <input type="text" id="email-signup" placeholder="enter email">
-                            <input type="text" id="password-signup"placeholder="password">
                         </div>
-                                            
-                    <input type="submit" class="fadeIn fourth" value="continue" id="next-sign-up">
-
+                        <div class="form-group form-row">
+                            <div class="col-5">
+                                <input type="text" id="street" placeholder="street" class="form-control">
+                            </div>
+                            <div class="col-4">
+                                <input type="text" id="number" placeholder="number" class="form-control">
+                            </div>
+                        </div>
+                        <input type="text" id="phone" class="form-control form-group col-5" placeholder="enter phone">
+                        <input type="text" id="email-signup" class="form-control form-group col-5" placeholder="enter email">
+                        <input type="text" id="password-signup" class="form-control form-group col-5" placeholder="password">
+                        <input type="submit" class="fadeIn fourth btn btn-primary" value="continue" id="next-sign-up">
+                    </div>
                 </div>
             </div>
-
     </script>  
     
+    <script id='interest-template' type="text/x-handlebars-template">
+        <div id="intrests-container">
+                <h2>Choose your favorite intrests</h2>
+                    <ul>{{each data}}
+                        <div class="card inrest" style="width: 18rem;">
+                            <img src="{{imgUrl}}" class="card-img-top">
+                            <div class="card-body">
+                              <h5 class="card-title">{{tagName}}</h5>
+                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                          </div>
+                    </ul>
+            </div>
+        </div>
+        </script>
+        <script id='welcome-page-template' type="text/x-handlebars-template">
+        
+        </script>
     <script id='search-activities-template' type="text/x-handlebars-template">
-
-        </script>
-    <script id='welcome-page-template' type="text/x-handlebars-template">
-
-        </script>
+    </script>
     <script id='my-profile-template' type="text/x-handlebars-template">
-
-        </script>
+    </script>
     <script id='edit-profile-template' type="text/x-handlebars-template">
-
-        </script>
+    </script>
     <script id='create-activity-template' type="text/x-handlebars-template">
-
-        </script>
+    </script>
 
 
     <script src="jquery/dist/jquery.js"></script>
