@@ -9,5 +9,4 @@ const findActivityById = async activityId =>{
     return await Activity.findById(activityId)
 }
 
-
 module.exports = {findUserById , findActivityById}
