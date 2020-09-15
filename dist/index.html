@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Dizy App</title>
+</head>
+
+<body> 
+    <div class="container-fluid">
+          <script id='log-in-template' type="text/x-handlebars-template"> 
+             <div id="login-container">
+                <div class="wrapper fadeInDown">
+                    <div id="formContent">
+                        
+                        <div class="fadeIn first">
+                            <img src="./source/logo.png" id="icon" alt="User Icon" />
+                        </div>
+
+                        <form>
+                            <input type="text" id="email" class="fadeIn second" name="login" placeholder="enter email">
+                            <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
+                            <input type="submit" class="fadeIn fourth" value="Log In" id="log-in-submit">
+                        </form>
+
+                        <div id="formFooter" class="sign-up">
+                            <a class="underlineHover" href="#">New User?</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </script>  
+
+          <script id='sign-up-template' type="text/x-handlebars-template">
+            <div id="sign-up-container">
+                <div id="formContent">
+                        
+                    <div class="fadeIn first">
+                        <img src="./source/logo.png" id="icon" alt="User Icon" />
+                    </div>
+
+                    <form>
+                        <input type="text" id="email" class="fadeIn second" name="login" placeholder="enter email">
+                        <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
+                        <div id="address" class="fadeIn second">
+                            <input type="text" id="country" placeholder="country">
+                            <input type="text" id="city" placeholder="city">
+                            <input type="text" id="street" placeholder="street">
+                        </div>
+                        <input type="text" id="street">
+                        <input type="submit" class="fadeIn fourth" value="sign up" id="sign-up-submit">
+
+                    </form>
+
+                    <div id="formFooter">
+                        <a class="underlineHover" href="#">New User?</a>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+        </script>  
+         <script id='search-activities-template' type="text/x-handlebars-template">
+            
+        </script> 
+         <script id='welcome-page-template' type="text/x-handlebars-template">
+            
+        </script> 
+         <script id='my-profile-template' type="text/x-handlebars-template">
+            
+        </script> 
+         <script id='edit-profile-template' type="text/x-handlebars-template">
+            
+        </script> 
+         <script id='create-activity-template' type="text/x-handlebars-template">
+            
+        </script> 
+
+    </div>
+            <script src="jquery/dist/jquery.js"></script>
+            <script src="bootstrap/dist/js/bootstrap.js"></script>
+            <script src="bootstrap/dist/css/bootstrap.css"></script>
+            <script src="handlebars/dist/handlebars.js"></script>
+            <script src="render.js"></script>
+            <script src="userModel.js"></script>
+            <script src="main.js"></script>
+
+</body>
+
+</html>
