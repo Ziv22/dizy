@@ -22,7 +22,7 @@ $('.container-fluid').on('click', '.sign-up', function() {
     render.renderContent('#sign-up-template')
 })
 
-$('.container-fluid').on('click', '.sign-up-submit', async function() {
+$('.container-fluid').on('click', '.next-sign-up', async function() {
     const   firstName = $('#first-name').val(),
             lastName = $('#first-name').val(),
             country = $('#country').val(),
@@ -37,9 +37,9 @@ $('.container-fluid').on('click', '.sign-up-submit', async function() {
     const   address = getGeoLocation(country, city, street, number),
             contactDetails = {phone, email},
             newUserObject = {firstName, lastName, address, contactDetails, password, interests}
-    
-    await user.createUser(newUserObject)
-    render.renderContent('#welcome-page-template', user)
+    console.log(newUserObject);
+    // await user.createUser(newUserObject)
+    // render.renderContent('#welcome-page-template', user)
 })
 
 $('.container-fluid').on('click', '.log-in-submit', async function() {
