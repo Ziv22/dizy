@@ -8,27 +8,34 @@ class User {
         this.contactDetails = {}
         this.password = ''
         this.activities = {}
+        this.interests = []
         this.searchedActivities = []
     }
 
     saveUserDetails(userObj) {
+        console.log(userObj)
         this.id = userObj['_id'] || ''
         this.firstName = userObj.firstName
         this.lastName = userObj.lastName
         this.address = userObj.address
         this.contactDetails = userObj.contactDetails
         this.password = userObj.password
-        this.activities = userObj.activities
+        this.interests = userObj.interests || []
+        this.activities = userObj.activities || []
     }
     /*making a get request to the server with the email & password 
     parameters and saved the user id that comes from the DB */
     async getUser(email, password) {
         const userInDb = await $.get(`/user/${email}/${password}`)
+        
         if(userInDb.name === 'Error') {
             return false
+        } else {
+            console.log(userInDb)
+            this.saveUserDetails(userInDb)
+            return true
         }
-        this.saveUserDetails(userInDb)
-        return true
+        
     }
 
     /*making a post request to the server with all the data from 
