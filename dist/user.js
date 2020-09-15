@@ -31,7 +31,7 @@ class User {
 
     /*making a post request to the server with all the data from 
     the user and saves it to the user variables */
-    async createUse(userObj)  {
+    async createUser(userObj)  {
         saveUserDetails(userObj)
         const newUsrInDb = await $.post('/user', userObj)
         this.id = newUsrInDb['_id']
@@ -39,8 +39,13 @@ class User {
 
     /*gets updated user object and sends a put request to the server 
     according to the user id and updates the user's variables. */
-    UpdateUserData(updatedUserObject) {
-
+    async updateUserData(updatedUserObject) {
+        const updatedUser = await $.ajax({
+            method = 'PUT',
+            url: '/user',
+            data: updatedUserObject
+        })
+        this.saveUserDetails(updatedUser)
     }
 
     /*making a post request to the server with the activities details 
@@ -62,8 +67,12 @@ class User {
 
     /*sends a get request to the server  with the required details and 
     returns an array of the activities results  */
-    searchActivity(searchObj) {
-
+    async searchActivity(searchObj) {
+        const { startDate, endDate, tags, city, name } = searchObj
+        const stringTags = JSON.stringify(tags)
+        const queryParams = `startDate=${startDate}&endDate=${endDate}&tags=${stringTags}&city=${city}&name=${name}`
+        const requiredActivities = await $.get(`/activity/?${queryParams}`)
+        this.searchedActivities = requiredActivities
     }
 
 }
