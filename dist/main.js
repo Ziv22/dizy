@@ -37,16 +37,15 @@ $('.container-fluid').on('click', '#next-sign-up', async function() {
     address['street'] = street
     address['number'] = number
     newUserObject = {firstName, lastName, address, contactDetails: {phone, email}, password}
-    console.log(newUserObject)
-    // await user.createUser(newUserObject)
+    user.saveUserDetails(newUserObject)
+    user.createUser(user)
     render.renderContent('#search-activities-template')
 })
 
-$('.container-fluid').on('click', '#log-in-submit', function() {
+$('.container-fluid').on('click', '#log-in-submit', async function() {
     const   email = $('#email-login').val(),
             password = $('#password-login').val()
-    // await user.getUser(email, password)
-    console.log(email,password)
+    await user.getUser(email, password)
     render.renderContent('#welcome-page-template', user)
 })
 
