@@ -28,16 +28,6 @@
       font-weight: 400;
     }
     
-     h2 {
-      text-align: center;
-      font-size: 16px;
-      font-weight: 600;
-      text-transform: uppercase;
-      display:inline-block;
-      margin: 40px 8px 10px 8px; 
-      color: #cccccc;
-    } 
-    
     
     
     /* STRUCTURE */
@@ -77,33 +67,7 @@
     #formFooter a {
       cursor: pointer;
     }
-    
-    
-    /* TABS */
-    
-    h2.inactive {
-      color: #cccccc;
-    }
-    
-    h2.active {
-      color: #0d0d0d;
-      border-bottom: 2px solid #5fbae9;
-    }
-    
-    
-    
-    /* FORM TYPOGRAPHY*/
-    
-    input[type=text]:focus {
-      background-color: #fff;
-      border-bottom: 2px solid #5fbae9;
-    }
-    
-    input[type=text]:placeholder {
-      color: #cccccc;
-    }
-    
-    
+  
     
     /* ANIMATIONS */
     
