@@ -5,4 +5,8 @@ class Render {
         const newHTML = template()
         $('.container-fluid').empty().append(newHTML)
     }
+
+    renderLogInError() {
+        $('#error-login').css('visibility', 'visible')
+    }
 }

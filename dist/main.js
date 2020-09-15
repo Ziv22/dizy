@@ -49,8 +49,13 @@ $('.container-fluid').on('click', '#submit-sign-up', async function() {
 $('.container-fluid').on('click', '#log-in-submit', async function() {
     const   email = $('#email-login').val(),
             password = $('#password-login').val()
-    await user.getUser(email, password)
-    // render.renderContent('#welcome-page-template', user)
+    const newUser = await user.getUser(email, password)
+    if(newUser) {
+        render.renderContent('#welcome-page-template', user)
+    }
+    else {
+        render.renderLogInError()
+    }
 })
 
 loadPage()

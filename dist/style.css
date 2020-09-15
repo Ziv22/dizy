@@ -29,6 +29,19 @@
       margin: 40px 8px 10px 8px; 
       color: #cccccc;
     }
+
+    #error-login {
+      visibility: hidden;
+      display: grid;
+      color: red;
+      font-size: 0.8em;
+      justify-self: center;
+      margin: 15px;
+    }
+
+    .show-login-error {
+      visibility: visible;
+    }
     
     
     
