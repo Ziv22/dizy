@@ -161,7 +161,7 @@ nav{
   grid-area: n;
   display: grid;
   grid-template-columns: 7fr 1fr;
-  background-color: #0c85c2;
+  background-color: #007bff;
   color:white;
 }
 .hello-user{
@@ -192,7 +192,6 @@ header {
 }
 #search-text-wraper{
   width:100%;
-  /* margin: auto; */
   margin-bottom:0.5em;
   grid-column: 1/-1;
 }
@@ -212,8 +211,15 @@ header {
   grid-area: c;
 }
 
+/* My Profile */
+#personal-info-container{
+  display: grid;
+  grid-template-columns:repeat(4,1fr); 
+  /* grid-template-rows:repeat(2,1fr);  */
+}
 
-  /* STRUCTURE */
+
+/* STRUCTURE */
   
 #formContent {
   display: flex;
@@ -393,4 +399,9 @@ header {
     border: 2px groove rgb(209, 241, 253);
     padding: 20px;
     /* box-shadow: 3px 0px 20px rgb(63, 63, 63); */
+  }
+
+  hr{
+    height: 3px;
+    color:#56baed;
   }
