@@ -189,14 +189,40 @@
             <h1>My profile</h1>
             <h3>Personal info</h3>
             {{#each data}}
-                <p>First Name: {{firstName}}</p>
-                <p>last Name:{{lastName}}</p>
-                <p>Country: {{address.country}} City: {{address.city}}</p>
-                <p>Street: {{address.street}} Number: {{address.number}}</p>
-                <p>Phone: {{contactDetails.phone}} Email: {{contactDetails.email}}</p>
+                <div id="personal-info-container">
+                    <div id="user-name">
+                        <h4 for="firstName">First Name:</h4>
+                        <p name="firstName">{{firstName}}</p>
+                    
+                        <h4 for="lastName">last Name:</h4>
+                        <p name="lastName">{{lastName}}</p>
+                    </div>
+    
+                    <div >
+                        <h4 for="country">Country:</h4>
+                        <p for="country"> {{address.country}} </p>
+    
+                        <h4 for="city">City:</h4>
+                        <p name="city">{{address.city}}</p>
+                    </div>
+                    <div>
+                        <h4 for="street">Street:</h4>
+                        <p name="street">{{address.street}} </p>
+    
+                        <h4 for="number">Number:</h4>
+                        <p name="number">{{address.number}}</p>
+                    </div>
+                    <div id="contact-info">
+                        <h4 for="phone">Phone:</h4>
+                        <p name="phone"> {{contactDetails.phone}} </p>
+    
+                        <h4 for="email">Email:</h4>
+                        <p name="email">{{contactDetails.email}}</p>
+                    </div>
+                </div>
             {{/each}}
-            <button id="edit-personal-info">Edit</button>
         </div>
+        <hr>
         <h3>My activities</h3>
         <h5>Created by me</h5>
         <div class="creator-activities-container"></div>
