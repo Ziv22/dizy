@@ -3,6 +3,7 @@ const   express     = require("express"),
         Activity    = require("../model/Activity"),
         User        = require("../model/User"),
         utils       = require("./utils")
+        mongoose    = require('mongoose')
 
 router.post('/activity', async (req, res) =>{
     const   activity      = new Activity(req.body),
@@ -49,7 +50,7 @@ router.delete('/activity/:activityId', async (req, res) =>{
 router.get('/activity', async (req, res)=>{
     try{
         let {startDate, endDate, tags, city, name }  = req.query
-        // const parsedTags =  JSON.parse(tags)
+
         const getQuery = () =>{
             let query = {}
             query["$and"] = []
@@ -84,6 +85,17 @@ router.get('/activity', async (req, res)=>{
                         }}
                     ]})
             }
+            if(tags){
+                const parsedTags =  JSON.parse(tags)
+                let tagsQuery = {}
+                tagsQuery["tags"] = {}
+                tagsQuery.tags["$in"] = []
+    
+                parsedTags.forEach(t => {
+                    tagsQuery.tags["$in"].push(mongoose.Types.ObjectId(t))
+                })
+                query["$and"].push(tagsQuery)
+            }
             return query
         }
         const query = getQuery()
@@ -91,7 +103,7 @@ router.get('/activity', async (req, res)=>{
         res.send(activities)
     }
     catch(err){ 
-        res.send(err)
+        res.send(`theres an error : ${err}`)
     }
 })
 
