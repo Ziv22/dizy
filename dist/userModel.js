@@ -27,7 +27,6 @@ class User {
     the user and saves it to the user variables */
     createUser = async (userObj) => {
         const newUsrInDb = await $.post('/user', userObj)
-        console.log(newUsrInDb)
         this.id = newUsrInDb['_id']
     }
 
@@ -63,7 +62,7 @@ class User {
 
     async getAllInterests() {
         let AllInterests = await $.get('/interests')
-        AllInterests = AllInterests.splice(21, 6000)
+        user.allInterests = AllInterests
         return AllInterests
     }
 

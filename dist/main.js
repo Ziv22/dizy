@@ -13,11 +13,36 @@ const getGeoLocation = async function(country, city, street, number) {
 }
 
 const loadPage = function() {
-    render.renderContent('#log-in-template')
+    render.renderContent('#log-in-template', '.container-fluid')
 }
 
+const loadLoggedIn = async function() {
+    // await user.searchActivity({ tags: user.interests })
+    render.renderContent('#welcome-page-template', '.container-fluid')
+    render.renderContent('#my-profile-template', '.content', [user])
+    console.log(user.activities.creator, user.activities.participant)
+    render.renderContent('#activities-template', '.creator-activities-container', user.activities.creator)
+    render.renderContent('#activities-template', '.participant-activities-container', user.activities.participant)
+}
+
+$('.container-fluid').on('click', '#log-in-submit', async function() {
+
+    const   email = $('#email-login').val(),
+            password = $('#password-login').val()
+
+    const newUser = await user.getUser(email, password)
+    await user.getAllInterests()
+    if(newUser) {
+        render.renderContent('#welcome-page-template', '.container-fluid', user)
+        loadLoggedIn()
+    }
+    else {
+        render.renderLogInError()
+    }
+})
+
 $('.container-fluid').on('click', '.new-user', function() {
-    render.renderContent('#sign-up-template')
+    render.renderContainerFluid('#sign-up-template')
 })
 
 $('.container-fluid').on('click', '#next-sign-up', async function() {
@@ -38,8 +63,8 @@ $('.container-fluid').on('click', '#next-sign-up', async function() {
     address['number'] = number
     newUserObject = { firstName, lastName, address, contactDetails: {phone, email}, password, interests: []}
     user.saveUserDetails(newUserObject)
-    const allInterests = await user.getAllInterests()
-    render.renderContent('#interest-template', allInterests)
+    await user.getAllInterests()
+    render.renderContent('#interest-template', '.container-fluid', user.allInterests)
 })
 
 $('.container-fluid').on('click', '#submit-sign-up', async function() {
@@ -47,20 +72,10 @@ $('.container-fluid').on('click', '#submit-sign-up', async function() {
         newUserObject.interests.push($(this).val())
     })
     user.createUser(newUserObject)
-    render.renderContent('#welcome-page-template', user)
+    render.renderContent('#welcome-page-template', '.cotainer-fluid', user)
 })
 
-$('.container-fluid').on('click', '#log-in-submit', async function() {
-    const   email = $('#email-login').val(),
-            password = $('#password-login').val()
-    const newUser = await user.getUser(email, password)
-    if(newUser) {
-        render.renderContent('#welcome-page-template', user)
-    }
-    else {
-        render.renderLogInError()
-    }
-})
+
 
 // $('.container-fluid').on('click', '.join-activity', async () => {
 //     const activityId = $(this).closest('.activity').data().id
@@ -69,7 +84,7 @@ $('.container-fluid').on('click', '#log-in-submit', async function() {
 // })
 
 
-$('.container-fluid').on('click', '#search-button', function(){
-    render.renderDivContent('#search-activities-template')
-})
+// $('.container-fluid').on('click', '#search-button', function(){
+//     render.renderDivContent('#search-activities-template')
+// })
 loadPage()

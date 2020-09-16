@@ -188,47 +188,30 @@ nav{
         
 @-webkit-keyframes fadeInDown {
   
-  0% {
-    opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: none;
-    transform: none;
-  }
-}
 
-@keyframes fadeInDown {
-  0% {
-    opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
+    /* OTHERS */
+    
+    *:focus {
+        outline: none;
+    } 
+    
+    #icon {
+      width:60%;
+    }
+      #error-login {
+    visibility: hidden;
+    display: grid;
+    color: red;
+    font-size: 0.8em;
+    justify-self: center;
+    margin: 15px;
   }
-  100% {
-    opacity: 1;
-    -webkit-transform: none;
-    transform: none;
+
+  .activities-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
   }
-}
-
-/* OTHERS */
-
-*:focus {
-    outline: none;
-} 
-
-#icon {
-  width:60%;
-}
-  #error-login {
-visibility: hidden;
-display: grid;
-color: red;
-font-size: 0.8em;
-justify-self: center;
-margin: 15px;
 }
 
 
