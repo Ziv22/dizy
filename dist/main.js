@@ -1,5 +1,6 @@
 const user = new User()
 const render = new Render()
+const validator = new Validator()
 
 const geoApi = 'https://api.opencagedata.com/geocode/v1/google-v3-json?'
 const geoApiKey = 'key=ac11ef55b14243e994013f4b5df1beac'
@@ -30,7 +31,7 @@ $('.container-fluid').on('click', '#next-sign-up', async function() {
             phone = $('#phone').val(),
             email = $('#email-signup').val(),
             password = $('#password-signup').val()
-
+    
     const   address = await getGeoLocation(country, city, street, number)
     address['country'] = country
     address['city'] = city
@@ -39,7 +40,6 @@ $('.container-fluid').on('click', '#next-sign-up', async function() {
     newUserObject = {firstName, lastName, address, contactDetails: {phone, email}, password}
     user.saveUserDetails(newUserObject)
     const allInterests = await user.getAllInterests()
-    console.log(allInterests)
     render.renderContent('#interest-template', allInterests)
 })
 
@@ -48,6 +48,7 @@ $('.container-fluid').on('click', '#submit-sign-up', async function() {
     user.interests = interestsInput
     user.createUser(user)
 })
+
 $('.container-fluid').on('click', '#log-in-submit', async function() {
     const   email = $('#email-login').val(),
             password = $('#password-login').val()
@@ -58,6 +59,12 @@ $('.container-fluid').on('click', '#log-in-submit', async function() {
     else {
         render.renderLogInError()
     }
+})
+
+$('.container-fluid').on('click', '.join-activity', async () => {
+    const activityId = $(this).closest('.activity').data().id
+    user.enrollToActivity(activityId)
+    render.renderContent('#welcome-page-template', user)
 })
 
 loadPage()
