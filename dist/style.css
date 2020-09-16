@@ -30,34 +30,124 @@
 }
   /* ------ intersts page style -------*/
 #intrests-container {
-  display: flex;
-  background-color: #56baed;
+  display: grid;
+  margin:0;
   height: 100vh;
   width: 100%;
+  overflow: hidden;
+  background-color: #56baed;
   justify-content: center;
   font-family: "Poppins", sans-serif;
-} 
-#intrests{
-  padding: 10px;
-  margin-top: 15px;
 }
+
+#interests-header{
+  text-align: center;
+  font-size: 3em;
+  color: #56baed;
+}
+
 #interests-container .container-sm{
+  overflow-y: scroll;
+  height: 93vh;
+  padding:10px;
   background-color: #fff;
-  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.7);
   border-radius: 10px 10px 10px 10px;
 
+}
 
+#interests{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  grid-gap:1em
 }
-.card img{
-  border-radius: 50%;
-  width: 7rem;
+.card{
+  height: 27vh;
+  width: 10vw;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  grid-template-rows: repeat(5,1fr);
+  border: 0px solid transparent;
 }
+
+.card:hover{
+  border: 5px solid #56baed;
+  color: #0c85c2;
   
+}
+
+.title-wraper{
+  grid-column: 1 / -1;
+  grid-row: 5 / -1;
+  background-color: white;
+  opacity: 0.8;
+}
+
+.card-title{
+  grid-column: 1 / -1;
+  grid-row: 5/ -1;
+  z-index:2;
+  font-size: 1.5em;
+  font-weight: bold;
+  align-self: center;
+  justify-self: center;
+}
+.card-checkbox{
+  grid-column: 1;
+  grid-row:1;
+  justify-self: left;
+  width: 1.5vw;
+  height: 4.0vh;
+  margin-left:0.3em;
+}
+
+#submit-sign-up{
+  position: fixed;
+  right:2vw;
+  bottom: 3vh;
+  z-index:1;
+  background-color: #56baed;
+  border: none;
+  color: white;
+  height: 10vh;
+  width:15vw;
+  border-radius: 3em;
+  font-size:2.4em;
+  border: 5px solid transparent;
+}
+#submit-sign-up:hover{
+  background-color: #0c85c2;
+  color:white;
+  border: 5px solid #92badd;
+}
 a {
   color: #92badd;
   display:inline-block;
   text-decoration: none;
   font-weight: 400;
+}
+
+/* ------------ Scroll ------------ */
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 /* ------ welcome page style -------*/
 
