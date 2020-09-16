@@ -105,7 +105,8 @@ $('.container-fluid').on('click', '#Create', async () => {
 })
 
 $('.container-fluid').on('click', '#Home', async () => {
-    loadLoggedIn()
+    await user.searchActivity({ tags: user.interests.map(i => i['_id']) })
+    render.renderContent('#search-activities-template', '.content', user.searchedActivities)
 })
 $('.container-fluid').on('click', '#search-activity', async function(){
     const   name = $('#activity-name').val(),
