@@ -90,7 +90,6 @@ $('.container-fluid').on('click', '#submit-activity', async () => {
     newActivityObj.price = $('#new-activity-price').val()
     newActivityObj.participantsLimit = $('#new-activity-participants').val()
     const avtivitiyAdded = await user.createActivity(newActivityObj)
-    user.activities.creator.push(avtivitiyAdded)
     await user.updateUserData(user.activities)
     render.renderActivitiyAdded(newActivityObj)
 })
