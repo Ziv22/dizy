@@ -7,7 +7,6 @@ const express = require("express"),
 router.post('/user', async (req, res) => {
     const user = new User(req.body),
         saveUser = await user.save()
-
     res.send(saveUser)
 })
 
@@ -20,7 +19,9 @@ router.get('/user/:email/:password?', async (req, res) => {
             { "contactDetails.email": userEmail },
             {'password': userPassword}
         ]
-    })} else {
+    })
+    // .populate( 'interests creator participant' )
+} else {
         findUser = User.findOne({
             "contactDetails.email": userEmail 
         })
