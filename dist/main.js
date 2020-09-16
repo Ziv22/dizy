@@ -14,13 +14,14 @@ const getGeoLocation = async function(country, city, street, number) {
 
 const loadPage = async function() {
     await user.getAllInterests()
-    render.renderContent('#create-activity-template', '.container-fluid', [user])
+    render.renderContent('#log-in-template', '.container-fluid', [user])
     
 }
 
 const loadLoggedIn = async function() {
     await user.searchActivity({ tags: user.interests })
     render.renderContent('#welcome-page-template', '.container-fluid', [user])
+    render.renderContent('#activities-template', '.content', user.searchedActivities)
 }
 
 $('.container-fluid').on('click', '#log-in-submit', async function() {
@@ -68,8 +69,6 @@ $('.container-fluid').on('click', '#submit-sign-up', async function() {
     loadLoggedIn()
 })
 
-
-
 $('.container-fluid').on('click', '#submit-activity', async () => {
     const newActivityObj = {}
     newActivityObj.name = $('#new-activity-title').val()
@@ -91,7 +90,19 @@ $('.container-fluid').on('click', '#submit-activity', async () => {
     render.renderActivitiyAdded(newActivityObj)
 })
 
+$('.container-fluid').on('click', '#My-Profile', async () => {
+    render.renderContent('#my-profile-template', '.content', [user])
+    render.renderContent('#activities-template', '.creator-activities-container', user.activities.creator)
+    render.renderContent('#activities-template', '.participant-activities-container', user.activities.participant)
+})
 
+$('.container-fluid').on('click', '#Create', async () => {
+    render.renderContent('#create-activity-template', '.content', [user])
+})
+
+$('.container-fluid').on('click', '#Home', async () => {
+    render.loadLoggedIn()
+})
 // $('.container-fluid').on('click', '#search-button', function(){
 //     render.renderDivContent('#search-activities-template')
 // })
