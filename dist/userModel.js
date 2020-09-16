@@ -38,14 +38,12 @@ class User {
             url: `/user/${this.id}`,
             data: updatedUserObject
         })
-        console.log(updatedUser)
         this.saveUserDetails(updatedUser)
     }
 
     /*making a post request to the server with the activities details 
     and saves it in the activities creator array */
     createActivity = async (activityObj) => {
-        console.log(this)
         const newActivity = await $.post('/activity', activityObj)
         this.activities.creator.push(newActivity) 
     }

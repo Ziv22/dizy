@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Ziv22/dizy#readme",
   "dependencies": {
+    "@popperjs/core": "^2.4.4",
     "axios": "^0.20.0",
     "bootstrap": "^4.5.2",
     "express": "^4.17.1",

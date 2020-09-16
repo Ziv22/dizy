@@ -325,3 +325,26 @@ nav{
     grid-template-columns: repeat(3, 1fr);
     justify-content: center;
   }
+
+  #create-activity-container{
+    display: grid;
+    grid-template-rows: 30% 70%;
+    height: 100%;
+  }
+
+  .logo-page{
+    display: grid;
+  }
+  .logo-page img{
+    justify-self: center;
+    height: 100%;
+  }
+
+  #new-activity-form{
+    display: grid;
+    justify-self: center;
+    border-radius: 15px;
+    border: 2px groove rgb(209, 241, 253);
+    padding: 20px;
+    /* box-shadow: 3px 0px 20px rgb(63, 63, 63); */
+  }

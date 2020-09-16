@@ -13,23 +13,21 @@ const getGeoLocation = async function(country, city, street, number) {
 }
 
 const loadPage = async function() {
-    render.renderContent('#log-in-template', '.container-fluid')
     await user.getAllInterests()
+    render.renderContent('#create-activity-template', '.container-fluid', [user])
+    
 }
 
 const loadLoggedIn = async function() {
     await user.searchActivity({ tags: user.interests })
-    render.renderContent('#welcome-page-template', '.container-fluid')
+    render.renderContent('#welcome-page-template', '.container-fluid', [user])
 }
 
 $('.container-fluid').on('click', '#log-in-submit', async function() {
-
     const   email = $('#email-login').val(),
             password = $('#password-login').val()
-    const newUser = await user.getUser(email, password)
-    
+    const newUser = await user.getUser(email, password)   
     if(newUser) {
-        render.renderContent('#welcome-page-template', '.container-fluid', user)
         loadLoggedIn()
     }
     else {
@@ -64,19 +62,34 @@ $('.container-fluid').on('click', '#next-sign-up', async function() {
 
 $('.container-fluid').on('click', '#submit-sign-up', async function() {
     $('.interestCard:checked').each(function(){
-        newUserObject.interests.push($(this).val())
+        newUserObject.interests.push($(this))
     })
     user.createUser(newUserObject)
-    render.renderContent('#welcome-page-template', '.cotainer-fluid', user)
+    loadLoggedIn()
 })
 
 
 
-// $('.container-fluid').on('click', '.join-activity', async () => {
-//     const activityId = $(this).closest('.activity').data().id
-//     user.enrollToActivity(activityId)
-//     render.renderContent('#welcome-page-template', user)
-// })
+$('.container-fluid').on('click', '#submit-activity', async () => {
+    const newActivityObj = {}
+    newActivityObj.name = $('#new-activity-title').val()
+    newActivityObj.image = $('#new-activity-image').val()
+    newActivityObj.date = $('#new-activity-date').val()
+    const country = $('#new-activity-country').val()
+    const city = $('#new-activity-city').val()
+    const street = $('#new-activity-street').val()
+    const number = $('#new-activity-number').val()
+    const location = await getGeoLocation(country, city, street, number)
+    newActivityObj['location'] = {country, city, street, number, location}
+    newActivityObj.isHappening = true
+    newActivityObj.tags = [...$("#new-activity-tag :selected")]
+    for(let t in newActivityObj.tags){ newActivityObj.tags[t] = $(newActivityObj.tags[t]).val() }
+    newActivityObj.creator = user.id
+    newActivityObj.price = $('#new-activity-price').val()
+    newActivityObj.participantsLimit = $('#new-activity-participants').val()
+    user.createActivity(newActivityObj)
+    render.renderActivitiyAdded(newActivityObj)
+})
 
 
 // $('.container-fluid').on('click', '#search-button', function(){
