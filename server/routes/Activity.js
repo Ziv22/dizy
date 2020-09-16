@@ -58,32 +58,34 @@ router.get('/activity', async (req, res)=>{
                 query["$and"].push({"location.city":city})
             }
             if(name){
-                query["$and"].push({name})
+                const nameQuery = { "name": { "$regex": name, "$options": "i" } }
+                query["$and"].push(nameQuery)
             }
             if(startDate  && !endDate){
                 query["$and"].push({date:{"$gte":startDate}})
             }
             if(startDate && endDate){
-                query["$and"].push(
-                    {"$and":[
+                const dateQuery =  {"$and":[
                         {date:{
                             "$gte":startDate
                         }},
                         {date:{
                             "$lte":endDate
                         }}
-                    ]})
+                    ]}
+                query["$and"].push(dateQuery)
             }
             if(!startDate && endDate){
-                query["$and"].push(
-                    {"$and":[
+                
+                const dateQuery = {"$and":[
                         {date:{
                             "$gt":Date.now()
                         }},
                         {date:{
                             "$lte":endDate
                         }}
-                    ]})
+                    ]}
+                query["$and"].push(dateQuery)
             }
             if(tags){
                 const parsedTags =  JSON.parse(tags)
