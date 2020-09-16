@@ -14,8 +14,8 @@
     <div class="container-fluid">
     </div>
 
-                      
-    <script id='log-in-template' type="text/x-handlebars-template"> 
+
+    <script id='log-in-template' type="text/x-handlebars-template">
 
         <div id="login-container">
             <div class="container-s fadeInDown">
@@ -253,26 +253,31 @@
     <script id='edit-profile-template' type="text/x-handlebars-template">
     </script>
     <script id='create-activity-template' type="text/x-handlebars-template">
-        <div id="create-activity-container">
-            <div class="fadeIn second">
-                <div id="new-activity-form">
-                    <h1>Create a new activity</h1>
-                
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Title</span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Enter your activitiy title..." 
-                        id="new-activity-title" aria-label="title" aria-describedby="basic-addon1">
-                    </div>
 
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Description</span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Enter a short activitiy description..." 
-                        id="new-activity-description" aria-describedby="basic-addon1">
+        <div class="container">
+            <div class="fadeIn first text-center">
+                <img src="./source/logo.png" id="icon" alt="User Icon" />
+            </div>
+            <div class="container border border-primary p-3 rounded fadeIn second">
+                <div class="text-center mb-3">
+                    <h1>Create a new activity</h1>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Title</span>
                     </div>
+                    <input type="text" class="form-control" placeholder="Enter your activitiy title..." 
+                    id="new-activity-title" aria-label="title" aria-describedby="basic-addon1">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Description</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Enter a short activitiy description..." 
+                    id="new-activity-description" aria-describedby="basic-addon1">
+                </div>
+
 
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -285,65 +290,73 @@
                                 {{/each}}
                             {{/each}}
                         </select>
-                    </div>
 
-                    <label>Address:</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Country</span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Country" 
-                        id="new-activity-country" aria-describedby="basic-addon1">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">City</span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="City" 
-                        id="new-activity-city" aria-describedby="basic-addon1">
                     </div>
-
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Street</span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Street Name" 
-                        id="new-activity-street" aria-describedby="basic-addon1">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Number</span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Home number" 
-                        id="new-activity-number" aria-describedby="basic-addon1">
-                    </div>
-
-                    <label for="basic-url">Your image URL</label>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon3">https://example.com/image.jpg</span>
-                        </div>
-                        <input type="text" class="form-control" id="new-activity-image" aria-describedby="basic-addon3">
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">Date</span>
-                        </div>
-                            <input type="date" class="form-control" placeholder="DD/MM/YYYY" 
-                            id="new-activity-date" aria-describedby="basic-addon1">
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Participants</span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Maximum participants" 
-                        id="new-activity-participants" aria-describedby="basic-addon1">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">Price</span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Enter price" 
-                        id="new-activity-price" aria-describedby="basic-addon1">
-                    </div>
-                    <button id="submit-activity" class="btn btn-primary" type="submit">Submit Activity</button>
+                    <select name="tags" id="new-activity-tag" multiple size="5">
+                        {{#each data}}
+                            {{#each allInterests}}
+                                <option value={{_id}}>{{tagName}}</option>
+                            {{/each}}
+                        {{/each}}
+                    </select>
                 </div>
+
+                <label>Address:</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Country</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Country" 
+                    id="new-activity-country" aria-describedby="basic-addon1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">City</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="City" 
+                    id="new-activity-city" aria-describedby="basic-addon1">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Street</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Street Name" 
+                    id="new-activity-street" aria-describedby="basic-addon1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Number</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Home number" 
+                    id="new-activity-number" aria-describedby="basic-addon1">
+                </div>
+
+                <label for="basic-url">Your image URL</label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">https://example.com/image.jpg</span>
+                    </div>
+                    <input type="text" class="form-control" id="new-activity-image" aria-describedby="basic-addon3">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Date</span>
+                    </div>
+                        <input type="date" class="form-control" placeholder="DD/MM/YYYY" 
+                        id="new-activity-date" aria-describedby="basic-addon1">
+                </div>
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Participants</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Maximum participants" 
+                    id="new-activity-participants" aria-describedby="basic-addon1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Price</span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Enter price" 
+                    id="new-activity-price" aria-describedby="basic-addon1">
+                </div>
+                <button id="submit-activity" class="btn btn-primary d-flex mx-auto w-50 justify-content-center" type="submit">Submit Activity</button>
             </div>
         </div>
     </script>
