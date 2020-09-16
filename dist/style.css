@@ -140,13 +140,13 @@ nav{
     -webkit-animation-duration:1s;
     -moz-animation-duration:1s;
     animation-duration:1s;
-  }
+}
   
-  .fadeIn.first {
-    -webkit-animation-delay: 0.4s;
-    -moz-animation-delay: 0.4s;
-    animation-delay: 0.4s;
-  }
+.fadeIn.first {
+  -webkit-animation-delay: 0.4s;
+  -moz-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
   
   .fadeIn.second {
     -webkit-animation-delay: 0.6s;
@@ -187,9 +187,32 @@ nav{
 }
         
 @-webkit-keyframes fadeInDown {
-  
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
 
-    /* OTHERS */
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+} 
+
+/* OTHERS */
     
     *:focus {
         outline: none;
@@ -212,14 +235,3 @@ nav{
     grid-template-columns: repeat(3, 1fr);
     justify-content: center;
   }
-}
-
-
-
-
-
-
-
-
-  
-
