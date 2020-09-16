@@ -19,7 +19,7 @@ const loadPage = async function() {
 
 const loadLoggedIn = async function() {
     await user.searchActivity({ tags: user.interests })
-    render.renderContent('#welcome-page-template', '.container-fluid')
+    render.renderContent('#welcome-page-template', '.container-fluid', [ user ])
 }
 
 $('.container-fluid').on('click', '#log-in-submit', async function() {
@@ -29,7 +29,7 @@ $('.container-fluid').on('click', '#log-in-submit', async function() {
     const newUser = await user.getUser(email, password)
     
     if(newUser) {
-        render.renderContent('#welcome-page-template', '.container-fluid', user)
+        // render.renderContent('#welcome-page-template', '.container-fluid', [user])
         loadLoggedIn()
     }
     else {
@@ -67,7 +67,7 @@ $('.container-fluid').on('click', '#submit-sign-up', async function() {
         newUserObject.interests.push($(this).val())
     })
     user.createUser(newUserObject)
-    render.renderContent('#welcome-page-template', '.cotainer-fluid', user)
+    render.renderContent('#welcome-page-template', '.cotainer-fluid', [user])
 })
 
 
