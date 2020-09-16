@@ -45,43 +45,54 @@ router.delete('/activity/:activityId', async (req, res) =>{
     }
 })
 
+
+
 router.get('/activity', async (req, res)=>{
     try{
-        const activities = []
         let {startDate, endDate, tags, city, name }  = req.query
-        
-        // const foundActivity = await Activity.find({...req.query})
-        // res.send(foundActivity)
-       
+        // const parsedTags =  JSON.parse(tags)
+
         const getQuery = () =>{
-            let query = `$and:[`
+            let query = {}
+            query["$and"] = []
             if(city){
-                query+= `{location.city=${city}},`
+                query["$and"].push({"location.city":city})
             }
             if(name){
-                query += `{"name": { "$regex": ${name}, "$options": "i" },`
+                query["$and"].push({name})
             }
             if(startDate  && !endDate){
-                query += `{"date": $gt:{${startDate}}},`
+                query["$and"].push({date:{"$gte":startDate}})
             }
             if(startDate && endDate){
-                query += `{$and:[{"date": {$gt:${startDate}}, {"date": {$lt:${endDate}}]},`
+                query["$and"].push(
+                    {"$and":[
+                        {date:{
+                            "$gte":startDate
+                        }},
+                        {date:{
+                            "$lte":endDate
+                        }}
+                    ]})
             }
             if(!startDate && endDate){
-                query += `{$and:[{"date":  {$gt:${Date.now()}}, {"date": {$lt:${endDate}}]},`
+                query["$and"].push(
+                    {"$and":[
+                        {date:{
+                            "$gt":Date.now()
+                        }},
+                        {date:{
+                            "$lte":endDate
+                        }}
+                    ]})
             }
-            query = query.slice(0,-1) + `]`
             return query
         }
-
         
         
-
-        // const parsedTags =  JSON.parse(tags)
-        // $and: [{"date": {$gt:startDate}, {"date": {$lt:endDate}]
-        // $and: [{"date": {$gt:<<<<NOW>>>>}, {"date": {$lt:endDate}]
-        // res.send(activities)
-        res.send(getQuery())
+        const query = getQuery()
+        const activities = await Activity.find(query)
+        res.send(activities)
     }
     catch(err){ 
         res.send(err)
