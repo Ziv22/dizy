@@ -371,7 +371,7 @@ header {
     margin: 15px;
   }
 
-  .activities-container{
+  #activies-render-container{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     justify-content: center;

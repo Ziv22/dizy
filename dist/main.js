@@ -89,7 +89,9 @@ $('.container-fluid').on('click', '#submit-activity', async () => {
     newActivityObj.creator = user.id
     newActivityObj.price = $('#new-activity-price').val()
     newActivityObj.participantsLimit = $('#new-activity-participants').val()
-    user.createActivity(newActivityObj)
+    const avtivitiyAdded = await user.createActivity(newActivityObj)
+    user.activities.creator.push(avtivitiyAdded)
+    await user.updateUserData(user.activities)
     render.renderActivitiyAdded(newActivityObj)
 })
 
@@ -110,8 +112,8 @@ $('.container-fluid').on('click', '#search-activity', async function(){
     const   name = $('#activity-name').val(),
             startDate = $('#startD').val(),
             endDate = $('#endD').val()
-    let tags       
-    if($("#interests-select :selected").lengt > 0 ){
+    let tags    
+    if($("#interests-select :selected").length > 0 ){
         tags = [...$("#interests-select :selected")]
         for(let t in tags){ tags[t] = $(tags[t]).data().id }
     } else {
@@ -121,4 +123,10 @@ $('.container-fluid').on('click', '#search-activity', async function(){
     await user.searchActivity(searchObj)
     render.renderContent('#search-activities-template', '.content', user.searchedActivities)
 })
+
+$('.container-fluid').on('click', '.join-activity', async function() {
+    const activityId = $(this).closest('.card').data().id
+    user.enrollToActivity(activityId)
+})
+
 loadPage()

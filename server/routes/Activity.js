@@ -8,7 +8,6 @@ const   express     = require("express"),
 router.post('/activity', async (req, res) =>{
     const   activity      = new Activity(req.body),
             saveActivity  = await activity.save()
-
     res.send(saveActivity)
 })
 
@@ -16,11 +15,9 @@ router.put('/activity/:userId/:activityId', async (req ,res) =>{
     try{
         const   userId          = req.params.userId
         const   activityId      = req.params.activityId
-
         const   foundUser       = await utils.findUserById(userId)
         const   findingActivity = await utils.findActivityById(activityId)
-        
-        foundUser.activites.participant.push(findingActivity)
+        foundUser.activities.participant.push(findingActivity)
         findingActivity.participants.push(foundUser)
 
         
