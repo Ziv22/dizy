@@ -88,22 +88,21 @@
 
     <script id='interest-template' type="text/x-handlebars-template">
         <div id="interests-container">
+            <h2 id="interests-header">Choose your favorite intrests</h2>
+            <button id="submit-sign-up">Sign Up</button>
             <div class="container-sm">
-                <h2>Choose your favorite intrests</h2>
                 <div id="interests">
                     {{#each data}}
-                        <ul>
-                            <div class="card" style="width: 18rem;">
-                                <img src="{{imgUrl}}" class="card-img-top">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{tagName}}</h5>
-                                    <input class="interestCard" type="checkbox" name="interst" value={{_id}}>
-                                </div>
+                        {{#each allInterests}}
+                        <div class="card" style="width: 18rem; background-image: url('{{imgUrl}}')">
+                            <input class="card-checkbox" type="checkbox" name="interst" value={{_id}}>
+                            <h3 class="card-title">{{tagName}}</h3>
+                            <div class="title-wraper">
                             </div>
-                        </ul>
+                        </div>
+                        {{/each}}
                     {{/each}}
                 </div> 
-                <button id="submit-sign-up">Sign Up</button>
             </div>
         </div>
 
