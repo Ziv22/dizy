@@ -45,7 +45,7 @@ class User {
     createActivity = async (activityObj) => {
         activityObj.creator = this.id
         const newActivity = await $.post('/activity', activityObj)
-        // this.activities.creator.push(newActivity) 
+        this.activities.creator.push(newActivity) 
     }
 
     /*making a put request to the server and saves the activity in the 
