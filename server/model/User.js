@@ -20,7 +20,7 @@ const UserSchema = new Schema({
      },
     password: String,
     interests: [{type: Schema.Types.ObjectId, ref:"Activity"}], //reference to: activity-ids
-    activites:{
+    activities:{
         creator:[{type: Schema.Types.ObjectId, ref:"Activity"}], //reference to: activity-ids
         participant: [{type: Schema.Types.ObjectId, ref:"Activity"}] //reference to: activity-ids
 }

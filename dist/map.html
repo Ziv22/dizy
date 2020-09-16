@@ -1,38 +1,92 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <style>
-       /* Set the size of the div element that contains the map */
-      #map {
-        height: 400px;  /* The height is 400 pixels */
-        width: 100%;  /* The width is the width of the web page */
-       }
+        /* Set the size of the div element that contains the map */
+        #map {
+            height: 400px;
+            /* The height is 400 pixels */
+            width: 100%;
+            /* The width is the width of the web page */
+        }
     </style>
-  </head>
-  <body>
+</head>
+
+<body>
     <h3>My Google Maps Demo</h3>
+    <button id="show-map">Show</button>
     <!--The div element for the map -->
-    <div id="map"></div>
+    <div id="map">
+    </div>
+
+    <!-- <script src="../node_modules/jquery/dist/jquery.js"></script> -->
     <script>
-// Initialize and add the map
-function initMap() {
-  // The location of Uluru
-  var uluru = {lat: 32.0946603,
-    lng: 34.7752426,};
-  // The map, centered at Uluru
-  var map = new google.maps.Map(
-      document.getElementById('map'), {zoom: 25, center: uluru});
-  // The marker, positioned at Uluru
-  var marker = new google.maps.Marker({position: uluru, map: map});
+        function initMap() {
+    var options = {
+        zoom: 8,
+        center: {
+            lat: 32.0946603,
+            lng: 34.7752426
+        }
+    }
+    var map = new google.maps.Map(
+        document.getElementById('map'), options);
+
+    //option to add marker through map.
+        // google.maps.event.addListener(map,'click',
+        // function(event){
+        //     addMarker({coords: event.latLng})
+        // })
+
+
+
+
+
+    var markers = [
+        {
+            coords: { lat: 32.0946603, lng: 34.7752426 },
+            // iconImage: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachFlag.png",
+            content: '<h1>Falafel Workshop<h1>'
+        },
+        {
+            coords: { lat: 32.16262, lng: 34.886691 }
+        },
+
+        {
+            coords: {
+                lat: 35.986003, lng: 36.932547
+            }
+        }
+    ];
+
+            for (let i = 0; i< markers.length; i++)
+            addMarker(markers[i])
+
+    function addMarker(props) {
+        var marker = new google.maps.Marker({
+            position: props.coords,
+            map: map,
+        });
+        if (props.iconImage) {
+            marker.setIcon(props.iconImage)
+        }
+        if (props.content) {
+            var infoWindow = new google.maps.InfoWindow({
+                content: props.content
+            }); 
+
+            marker.addListener("click" , function(){
+                infoWindow.open(map,marker);
+            })
+        }
+    }
 }
     </script>
-    <!--Load the API from the specified URL
-    * The async attribute allows the browser to render the page while the API loads
-    * The key parameter will contain your own API key (which is not needed for this tutorial)
-    * The callback parameter executes the initMap() function
-    -->
-    <script defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCYYt3NuOfQx0nvwYZpiC0eMqDcGFf4Io&callback=initMap">
-    </script>
-  </body>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCYYt3NuOfQx0nvwYZpiC0eMqDcGFf4Io&callback=initMap">
+        </script>
+    <script src="Map.js"></script>
+</body>
+
 </html>
