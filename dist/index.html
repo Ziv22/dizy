@@ -111,23 +111,27 @@
     <script id='welcome-page-template' type="text/x-handlebars-template">
     </script>
 
-    <script id='search-activities-template' type="text/x-handlebars-template">
+    <script id='activities-template' type="text/x-handlebars-template">
         <div class="activities-container">
-            {{#each data}}
-                <div class="card" style="width: 18rem;">
-                    <img src={{image}} class="card-img-top" alt="..." width="200px">
-                    <div class="card-body">
-                        <h5 class="card-title">{{name}}</h5>
-                        <p class="card-text">
-                            {{date}}<br>
-                            {{location.country}}, {{location.city}}<br>
-                            {{location.street}}, {{location.number}}<br>
-                            {{price}}
-                        </p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+            {{#if data}}
+                {{#each data}}
+                    <div class="card" style="width: 18rem;" data-id={{this}}>
+                        <img src={{image}} class="card-img-top" alt="..." width="200px">
+                        <div class="card-body">
+                            <h5 class="card-title">{{this}}</h5>
+                            <p class="card-text">
+                                {{date}}<br>
+                                {{location.country}}, {{location.city}}<br>
+                                {{location.street}}, {{location.number}}<br>
+                                {{price}}
+                            </p>
+                            <a href="#" class="btn btn-primary join-activity">Join</a>
+                        </div>
                     </div>
-                </div>
-            {{/each}}
+                {{/each}}
+            {{else}}
+                <p>No Activities To show</p>
+            {{/if}}
         </div>
     </script>
 
@@ -142,6 +146,7 @@
                 <p>Street: {{address.street}} Number: {{address.number}}</p>
                 <p>Phone: {{contactDetails.phone}} Email: {{contactDetails.email}}</p>
             {{/each}}
+            <button id="edit-personal-info">Edit</button>
         </div>
         <h3>My activities</h3>
         <h5>Created by me</h5>
@@ -152,6 +157,45 @@
     <script id='edit-profile-template' type="text/x-handlebars-template">
     </script>
     <script id='create-activity-template' type="text/x-handlebars-template">
+        <div id="create-activity-container">
+            <div class="container-s fadeInDown">
+                <div id="formContent">
+                    <div class="fadeIn first">
+                        <img src="./source/logo.png" id="icon" alt="User Icon" />
+                    </div>
+
+                    <div class="fadeIn second">
+                        <div class="form-group form-row">
+                            <div class="col">
+                                <input type="text" id="fname" placeholder="first name" class="form-control">
+                            </div>
+                            <div class="col">
+                                <input type="text" id="lname" placeholder="last name" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <div class="col">
+                                <input type="text" id="country" placeholder="country" class="form-control">
+                            </div>
+                            <div class="col">
+                                <input type="text" id="city" placeholder="city" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <div class="col-8">
+                                <input type="text" id="street" placeholder="street" class="form-control">
+                            </div>
+                            <div class="col-4">
+                                <input type="text" id="number" placeholder="number" class="form-control">
+                            </div>
+                        </div>
+                        <input type="text" id="phone" class="form-control form-group col-8" placeholder="enter phone">
+                        <input type="text" id="email-signup" class="form-control form-group col-8" placeholder="enter email">
+                        <input type="text" id="password-signup" class="form-control form-group col-8" placeholder="password">
+                        <input type="submit" class="fadeIn fourth btn btn-primary" value="continue" id="next-sign-up">
+                    </div>
+                </div>
+            </div>
     </script>
 
 
