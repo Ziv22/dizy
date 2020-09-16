@@ -17,7 +17,7 @@ const ActivitySchema = new Schema({
         lng: Number,
     },
     tags: [{type: Schema.Types.ObjectId, ref:"Interest"}], //reference to: tag-ids
-    creator: String, //Creator Id
+    creator: {type: String}, //Creator Id
     participants: [{type: Schema.Types.ObjectId, ref:"User"}], //reference to: user-ids
     price: Number,
     participantLimit: Number

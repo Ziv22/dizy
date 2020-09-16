@@ -32,20 +32,20 @@ class User {
 
     /*gets updated user object and sends a put request to the server 
     according to the user id and updates the user's variables. */
-    updateUserData = async (updatedUserObject) => {
+    updateUserData = async function(updatedUserObject) {
         const updatedUser = await $.ajax({
             method: 'PUT',
             url: `/user/${this.id}`,
             data: updatedUserObject
         })
-        this.saveUserDetails(updatedUser)
     }
 
     /*making a post request to the server with the activities details 
     and saves it in the activities creator array */
     createActivity = async (activityObj) => {
+        activityObj.creator = this.id
         const newActivity = await $.post('/activity', activityObj)
-        this.activities.creator.push(newActivity) 
+        // this.activities.creator.push(newActivity) 
     }
 
     /*making a put request to the server and saves the activity in the 
@@ -55,6 +55,7 @@ class User {
             method: 'PUT',
             url: `/activity/${this.id}/${activityId}`
         })
+        
         this.activities.participant.push(newActivity)
     }
 

@@ -151,7 +151,6 @@
             </header>
             <hr>
             <div class="content">
-                <h1>You might like</h1>
             </div>
             {{/each}}
         </div>
@@ -161,30 +160,33 @@
     <script id='search-activities-template' type="text/x-handlebars-template">
         <div class="activities-container">
             {{#if data}}
-                {{#each data}}
-                    <div class="card" style="width: 18rem;" data-id={{_id}}>
-                        <img src={{image}} class="card-img-top" alt="..." width="200px">
-                        <div class="card-body">
-                            <h5 class="card-title">{{name}}</h5>
-                            <p class="card-text">
-                                {{date}}<br>
-                                {{location.country}}, {{location.city}}<br>
-                                {{location.street}}, {{location.number}}<br>
-                                {{price}}
-                            </p> 
-                            <a href="#" class="btn btn-primary join-activity">Join</a>
-                        </div>
-                    </div> 
-                {{/each}}
+                <div id="activies-render-container">
+                    {{#each data}}
+                        <div class="card" style="width: 18rem;" data-id={{_id}}>
+                            <img src={{image}} class="card-img-top" alt="..." width="200px">
+                            <div class="card-body">
+                                <h5 class="card-title">{{name}}</h5>
+                                <p class="card-text">
+                                    {{date}}<br>
+                                    {{location.country}}, {{location.city}}<br>
+                                    {{location.street}}, {{location.number}}<br>
+                                    {{price}}
+                                </p> 
+                                <a href="#" class="btn btn-primary join-activity">Join</a>
+                            </div>
+                        </div> 
+                    {{/each}}
+                </div>
             {{else}}
                 <p>No Activities To show</p>
             {{/if}}
         </div>
     </script>
 
-    <script id='activities-template' type="text/x-handlebars-template">
-        <div class="user-activities-container">
+    <script id='user-activities-template' type="text/x-handlebars-template">
+        <div class="activities-container">
             {{#if data}}
+            <div id="activies-render-container">
                 {{#each data}}
                     <div class="card" style="width: 18rem;" data-id={{_id}}>
                         <img src={{image}} class="card-img-top" alt="..." width="200px">
@@ -199,6 +201,7 @@
                         </div>
                     </div> 
                 {{/each}}
+                </div>
             {{else}}
                 <p>No Activities To show</p>
             {{/if}}
