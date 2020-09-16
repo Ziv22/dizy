@@ -158,7 +158,7 @@
         
     </script>
 
-    <script id='activities-template' type="text/x-handlebars-template">
+    <script id='search-activities-template' type="text/x-handlebars-template">
         <div class="activities-container">
             {{#if data}}
                 {{#each data}}
@@ -173,6 +173,29 @@
                                 {{price}}
                             </p> 
                             <a href="#" class="btn btn-primary join-activity">Join</a>
+                        </div>
+                    </div> 
+                {{/each}}
+            {{else}}
+                <p>No Activities To show</p>
+            {{/if}}
+        </div>
+    </script>
+
+    <script id='activities-template' type="text/x-handlebars-template">
+        <div class="user-activities-container">
+            {{#if data}}
+                {{#each data}}
+                    <div class="card" style="width: 18rem;" data-id={{_id}}>
+                        <img src={{image}} class="card-img-top" alt="..." width="200px">
+                        <div class="card-body">
+                            <h5 class="card-title">{{name}}</h5>
+                            <p class="card-text">
+                                {{date}}<br>
+                                {{location.country}}, {{location.city}}<br>
+                                {{location.street}}, {{location.number}}<br>
+                                {{price}}
+                            </p> 
                         </div>
                     </div> 
                 {{/each}}

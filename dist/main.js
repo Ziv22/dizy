@@ -22,7 +22,7 @@ const loadLoggedIn = async function() {
     await user.searchActivity({ tags: user.interests.map(i => i['_id']) })
 
     render.renderContent('#welcome-page-template', '.container-fluid', [user])
-    render.renderContent('#activities-template', '.content', user.searchedActivities)
+    render.renderContent('#search-activities-template', '.content', user.searchedActivities)
 
 }
 
@@ -95,8 +95,8 @@ $('.container-fluid').on('click', '#submit-activity', async () => {
 
 $('.container-fluid').on('click', '#My-Profile', async () => {
     render.renderContent('#my-profile-template', '.content', [user])
-    render.renderContent('#activities-template', '.creator-activities-container', user.activities.creator)
-    render.renderContent('#activities-template', '.participant-activities-container', user.activities.participant)
+    render.renderContent('#user-activities-template', '.creator-activities-container', user.activities.creator)
+    render.renderContent('#user-activities-template', '.participant-activities-container', user.activities.participant)
 })
 
 $('.container-fluid').on('click', '#Create', async () => {
@@ -104,7 +104,7 @@ $('.container-fluid').on('click', '#Create', async () => {
 })
 
 $('.container-fluid').on('click', '#Home', async () => {
-    render.loadLoggedIn()
+    loadLoggedIn()
 })
 $('.container-fluid').on('click', '#search-activity', async function(){
     const   name = $('#activity-name').val(),
@@ -118,8 +118,7 @@ $('.container-fluid').on('click', '#search-activity', async function(){
         tags = undefined
     }
     const searchObj = { name, startDate, endDate, tags }
-    console.log(searchObj)
     await user.searchActivity(searchObj)
-    render.renderContent('#activities-template', '.content', user.searchedActivities)
+    render.renderContent('#search-activities-template', '.content', user.searchedActivities)
 })
 loadPage()
