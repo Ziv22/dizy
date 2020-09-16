@@ -12,7 +12,7 @@ class Render {
     }
 
     renderActivitiyAdded(activityObj) {
-        $('.container-fluid').empty().append(`<h1>Your activity ${activityObj.name} has been added Successfully</h1>
+        $('.content').empty().append(`<h1>Your activity ${activityObj.name} has been added Successfully</h1>
         <p>You can now look for it in your profile page.</p>`)
     }
 }

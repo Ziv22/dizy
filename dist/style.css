@@ -157,18 +157,69 @@ a {
                 'h '
                 'c '
 }
+nav{
+  grid-area: n;
+  display: grid;
+  grid-template-columns: 7fr 1fr;
+  background-color: #007bff;
+  color:white;
+}
+.hello-user{
+  align-self:center;
+}
+.nav-item{
+  background-color: transparent;
+  height: 100%;
+  color: white;
+}
+.nav-item > button{
+  background-color: transparent;
+  height: 100%;
+  color: white;
+}
 header {
   grid-area: h;
 }
-nav{
-  grid-area: n;
+#search-div{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  grid-template-rows:25% 60% 15%;
+}
+#search-text-wraper{
+  margin-top:2em;
+  margin-bottom:0.5em;
+  grid-column: 1/-1;
+}
+#search-text-wraper{
+  width:100%;
+  margin-bottom:0.5em;
+  grid-column: 1/-1;
+}
+.tagsSelect{
+  display: grid;
+  grid-column: 2/2;
+  grid-row: 2/2;  
+}
+.dateSelect{
+  grid-column: 1/1;
+  grid-row: 2/2;  
+}
+#search-activity{
+  grid-column: 1/3;
 }
 .content {
   grid-area: c;
 }
 
+/* My Profile */
+#personal-info-container{
+  display: grid;
+  grid-template-columns:repeat(4,1fr); 
+  /* grid-template-rows:repeat(2,1fr);  */
+}
 
-  /* STRUCTURE */
+
+/* STRUCTURE */
   
 #formContent {
   display: flex;
@@ -325,3 +376,4 @@ nav{
     grid-template-columns: repeat(3, 1fr);
     justify-content: center;
   }
+

@@ -14,13 +14,16 @@ const getGeoLocation = async function(country, city, street, number) {
 
 const loadPage = async function() {
     await user.getAllInterests()
-    render.renderContent('#create-activity-template', '.container-fluid', [user])
+    render.renderContent('#log-in-template', '.container-fluid', [user])
     
 }
 
 const loadLoggedIn = async function() {
-    await user.searchActivity({ tags: user.interests })
+    await user.searchActivity({ tags: user.interests.map(i => i['_id']) })
+
     render.renderContent('#welcome-page-template', '.container-fluid', [user])
+    render.renderContent('#search-activities-template', '.content', user.searchedActivities)
+
 }
 
 $('.container-fluid').on('click', '#log-in-submit', async function() {
@@ -61,14 +64,13 @@ $('.container-fluid').on('click', '#next-sign-up', async function() {
 })
 
 $('.container-fluid').on('click', '#submit-sign-up', async function() {
-    $('.interestCard:checked').each(function(){
-        newUserObject.interests.push($(this))
+    $('.card-checkbox:checked').each(function(){
+        user.interests.push($(this).val())
     })
     user.createUser(newUserObject)
     loadLoggedIn()
+
 })
-
-
 
 $('.container-fluid').on('click', '#submit-activity', async () => {
     const newActivityObj = {}
@@ -83,7 +85,7 @@ $('.container-fluid').on('click', '#submit-activity', async () => {
     newActivityObj['location'] = {country, city, street, number, location}
     newActivityObj.isHappening = true
     newActivityObj.tags = [...$("#new-activity-tag :selected")]
-    for(let t in newActivityObj.tags){ newActivityObj.tags[t] = $(newActivityObj.tags[t]).val() }
+    for(let t in newActivityObj.tags){ newActivityObj.tags[t] = $(newActivityObj.tags[t]).data().id }
     newActivityObj.creator = user.id
     newActivityObj.price = $('#new-activity-price').val()
     newActivityObj.participantsLimit = $('#new-activity-participants').val()
@@ -91,8 +93,32 @@ $('.container-fluid').on('click', '#submit-activity', async () => {
     render.renderActivitiyAdded(newActivityObj)
 })
 
+$('.container-fluid').on('click', '#My-Profile', async () => {
+    render.renderContent('#my-profile-template', '.content', [user])
+    render.renderContent('#user-activities-template', '.creator-activities-container', user.activities.creator)
+    render.renderContent('#user-activities-template', '.participant-activities-container', user.activities.participant)
+})
 
-// $('.container-fluid').on('click', '#search-button', function(){
-//     render.renderDivContent('#search-activities-template')
-// })
+$('.container-fluid').on('click', '#Create', async () => {
+    render.renderContent('#create-activity-template', '.content', [user])
+})
+
+$('.container-fluid').on('click', '#Home', async () => {
+    loadLoggedIn()
+})
+$('.container-fluid').on('click', '#search-activity', async function(){
+    const   name = $('#activity-name').val(),
+            startDate = $('#startD').val(),
+            endDate = $('#endD').val()
+    let tags       
+    if($("#interests-select :selected").lengt > 0 ){
+        tags = [...$("#interests-select :selected")]
+        for(let t in tags){ tags[t] = $(tags[t]).data().id }
+    } else {
+        tags = undefined
+    }
+    const searchObj = { name, startDate, endDate, tags }
+    await user.searchActivity(searchObj)
+    render.renderContent('#search-activities-template', '.content', user.searchedActivities)
+})
 loadPage()
