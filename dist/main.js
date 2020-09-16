@@ -1,51 +1,69 @@
 const user = new User()
 const render = new Render()
+const validator = new Validator()
 
-const geoApi = 'https://api.opencagedata.com/geocode/v1/google-v3-json?address='
+const geoApi = 'https://api.opencagedata.com/geocode/v1/google-v3-json?'
 const geoApiKey = 'key=ac11ef55b14243e994013f4b5df1beac'
-const getGeoLocation = function(country, city, street, number) {
-    const apiParams = `${number}+${street}%2C+${city}+%2C+${country}`
-    $.get(`${geoApi}${apiParams}&${geoApiKey}`, function(geoLocation){
-        const objToSend = { lat: geoLocation.geometry.location.lat, 
-            lng: geoLocation.geometry.location.lng
-        }
-        return objToSend
-    })
-    
+const getGeoLocation = async function(country, city, street, number) {
+    const apiParams = `address=${number}+${street}%2C+${city}+%2C+${country}`
+    const apiRequest = await $.get(`${geoApi}${apiParams}&${geoApiKey}`) 
+    const objToSend = { lat: apiRequest.results[0].geometry.location.lat, 
+        lng: apiRequest.results[0].geometry.location.lng
+    }
+    return objToSend
 }
 
 const loadPage = function() {
     render.renderContent('#log-in-template')
 }
 
-$('.container-fluid').on('click', '.sign-up', function() {
+$('.container-fluid').on('click', '.new-user', function() {
     render.renderContent('#sign-up-template')
 })
 
-$('.container-fluid').on('click', '.next-sign-up', async function() {
-    const   firstName = $('#first-name').val(),
-            lastName = $('#first-name').val(),
+$('.container-fluid').on('click', '#next-sign-up', async function() {
+    const   firstName = $('#fname').val(),
+            lastName = $('#lname').val(),
             country = $('#country').val(),
             city = $('#city').val(),
             street = $('#street').val(),
             number = $('#number').val(),
             phone = $('#phone').val(),
-            email = $('#email').val(),
-            password = $('#password').val(),
-            interests = $('#interests').val()
-
-    const   address = getGeoLocation(country, city, street, number),
-            contactDetails = {phone, email},
-            newUserObject = {firstName, lastName, address, contactDetails, password, interests}
-    console.log(newUserObject);
-    // await user.createUser(newUserObject)
-    // render.renderContent('#welcome-page-template', user)
+            email = $('#email-signup').val(),
+            password = $('#password-signup').val()
+    
+    const   address = await getGeoLocation(country, city, street, number)
+    address['country'] = country
+    address['city'] = city
+    address['street'] = street
+    address['number'] = number
+    newUserObject = {firstName, lastName, address, contactDetails: {phone, email}, password}
+    user.saveUserDetails(newUserObject)
+    const allInterests = await user.getAllInterests()
+    render.renderContent('#interest-template', allInterests)
 })
 
-$('.container-fluid').on('click', '.log-in-submit', async function() {
-    const   email = $('#email').val(),
-            password = $('#password').val()
-    await user.getUser(email, password)
+$('.container-fluid').on('click', '#submit-sign-up', async function() {
+    const interestsInput = $('#interest').val()
+    user.interests = interestsInput
+    user.createUser(user)
+})
+
+$('.container-fluid').on('click', '#log-in-submit', async function() {
+    const   email = $('#email-login').val(),
+            password = $('#password-login').val()
+    const newUser = await user.getUser(email, password)
+    if(newUser) {
+        render.renderContent('#welcome-page-template', user)
+    }
+    else {
+        render.renderLogInError()
+    }
+})
+
+$('.container-fluid').on('click', '.join-activity', async () => {
+    const activityId = $(this).closest('.activity').data().id
+    user.enrollToActivity(activityId)
     render.renderContent('#welcome-page-template', user)
 })
 

@@ -6,8 +6,8 @@ const findUserById = async userId =>{
 }
 
 const findActivityById = async activityId =>{
+    console.log(activityId)
     return await Activity.findById(activityId)
 }
-
 
 module.exports = {findUserById , findActivityById}
