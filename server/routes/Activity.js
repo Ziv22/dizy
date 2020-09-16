@@ -102,6 +102,7 @@ router.get('/activity', async (req, res)=>{
         }
         const query = getQuery()
         const activities = await Activity.find(query)
+
         res.send(activities)
     }
     catch(err){ 
