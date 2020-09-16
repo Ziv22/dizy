@@ -69,9 +69,24 @@ class User {
     /*sends a get request to the server  with the required details and 
     returns an array of the activities results  */
     async searchActivity(searchObj) {
+        let queryParams = ''
         const { startDate, endDate, tags, city, name } = searchObj //if a data is not given it will send undifined
-        const stringTags = JSON.stringify(tags)
-        const queryParams = `startDate=${startDate}&endDate=${endDate}&tags=${stringTags}&location.city=${city}&name=${name}`
+        if(startDate) {
+            queryParams += `startDate=${startDate}&`
+        }
+        if(endDate) {
+            queryParams += `endDate=${endDate}&`
+        }
+        if(tags) {
+            const stringTags = JSON.stringify(tags)
+            queryParams += `tags=${stringTags}&`
+        }
+        if(city) {
+            queryParams += `city=${city}&`
+        }
+        if(name) {
+            queryParams += `name=${name}&`
+        }
         const requiredActivities = await $.get(`/activity/?${queryParams}`)
         this.searchedActivities = requiredActivities
     }

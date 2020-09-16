@@ -12,26 +12,22 @@ const getGeoLocation = async function(country, city, street, number) {
     return objToSend
 }
 
-const loadPage = function() {
+const loadPage = async function() {
     render.renderContent('#log-in-template', '.container-fluid')
+    await user.getAllInterests()
 }
 
 const loadLoggedIn = async function() {
-    // await user.searchActivity({ tags: user.interests })
+    await user.searchActivity({ tags: user.interests })
     render.renderContent('#welcome-page-template', '.container-fluid')
-    render.renderContent('#my-profile-template', '.content', [user])
-    console.log(user.activities.creator, user.activities.participant)
-    render.renderContent('#activities-template', '.creator-activities-container', user.activities.creator)
-    render.renderContent('#activities-template', '.participant-activities-container', user.activities.participant)
 }
 
 $('.container-fluid').on('click', '#log-in-submit', async function() {
 
     const   email = $('#email-login').val(),
             password = $('#password-login').val()
-
     const newUser = await user.getUser(email, password)
-    await user.getAllInterests()
+    
     if(newUser) {
         render.renderContent('#welcome-page-template', '.container-fluid', user)
         loadLoggedIn()
@@ -42,7 +38,7 @@ $('.container-fluid').on('click', '#log-in-submit', async function() {
 })
 
 $('.container-fluid').on('click', '.new-user', function() {
-    render.renderContainerFluid('#sign-up-template')
+    render.renderContent('#sign-up-template' ,'.container-fluid')
 })
 
 $('.container-fluid').on('click', '#next-sign-up', async function() {
@@ -63,7 +59,6 @@ $('.container-fluid').on('click', '#next-sign-up', async function() {
     address['number'] = number
     newUserObject = { firstName, lastName, address, contactDetails: {phone, email}, password, interests: []}
     user.saveUserDetails(newUserObject)
-    await user.getAllInterests()
     render.renderContent('#interest-template', '.container-fluid', user.allInterests)
 })
 
