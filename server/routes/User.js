@@ -5,16 +5,20 @@ const express = require("express"),
     User = require("../model/User")
 
 router.post('/user', async (req, res) => {
-    const user = new User(req.body),
-        saveUser = await user.save()
-
+    const user = new User(req.body)
+    const saveUser = await user.save()
+    
     res.send(saveUser)
 })
 
-router.get('/user/:email/:password', async (req, res) => {
+router.get('/user/:email/:password?', async (req, res) => {
         const userEmail = req.params.email
         const userPassword = req.params.password
-        const findUserByEmailAndPassword = User.findOne({ $and: [{ "contactDetails.email": userEmail }, { password: userPassword }] })
+        const findUserByEmailAndPassword = User.findOne({ $and: [
+            { "contactDetails.email": userEmail }, 
+            userPassword ? {'password': userPassword} : {'password': {$exists: true}}
+        ] 
+    })
         findUserByEmailAndPassword.exec(function(err, user) {   
             if (err) {
                 res.send(err)
