@@ -12,12 +12,12 @@
 <body>
     <div class="container-fluid">
     </div>
-    <script id='log-in-template' type="text/x-handlebars-template"> 
+    <script id='log-in-template' type="text/x-handlebars-template">
         <div id="login-container">
-            <div class="wrapper fadeInDown">
+            <div class="container-s fadeInDown">
                 <div id="formContent">
                     <div class="fadeIn first">
-                        <img src="./source/logo.png" id="icon" alt="User Icon" />
+                        <img src="./source/logo.png" id="icon" alt="User Icon"/>
                     </div>
                     <div class="form-group">
                         <input type="text" id="email-login" class="fadeIn second form-control" placeholder="enter email">
@@ -34,11 +34,11 @@
                 </div>
             </div>
         </div>
-    </script>   
+    </script>
 
     <script id='sign-up-template' type="text/x-handlebars-template">
         <div id="sign-up-container">
-            <div class="wrapper fadeInDown">
+            <div class="container-s fadeInDown">
                 <div id="formContent">
                     <div class="fadeIn first">
                         <img src="./source/logo.png" id="icon" alt="User Icon" />
@@ -62,40 +62,44 @@
                             </div>
                         </div>
                         <div class="form-group form-row">
-                            <div class="col-5">
+                            <div class="col-8">
                                 <input type="text" id="street" placeholder="street" class="form-control">
                             </div>
                             <div class="col-4">
                                 <input type="text" id="number" placeholder="number" class="form-control">
                             </div>
                         </div>
-                        <input type="text" id="phone" class="form-control form-group col-5" placeholder="enter phone">
-                        <input type="text" id="email-signup" class="form-control form-group col-5" placeholder="enter email">
-                        <input type="text" id="password-signup" class="form-control form-group col-5" placeholder="password">
+                        <input type="text" id="phone" class="form-control form-group col-8" placeholder="enter phone">
+                        <input type="text" id="email-signup" class="form-control form-group col-8" placeholder="enter email">
+                        <input type="text" id="password-signup" class="form-control form-group col-8" placeholder="password">
                         <input type="submit" class="fadeIn fourth btn btn-primary" value="continue" id="next-sign-up">
                     </div>
                 </div>
             </div>
-    </script>  
-    
+    </script>
+
     <script id='interest-template' type="text/x-handlebars-template">
         <div id="intrests-container">
+            <div class="container-sm">
                 <h2>Choose your favorite intrests</h2>
-                    <ul>{{each data}}
-                        <div class="card inrest" style="width: 18rem;">
-                            <img src="{{imgUrl}}" class="card-img-top">
-                            <div class="card-body">
-                              <h5 class="card-title">{{tagName}}</h5>
-                              <a href="#" class="btn btn-primary">Go somewhere</a>
+                <div id="intrests">
+                    {{#each data}}
+                        <ul>
+                            <div class="card" style="width: 18rem;">
+                                <img src="{{tagUrl}}" class="card-img-top">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{tagName}}</h5>
+                                    <input type="checkbox" name="interst" value="add">
+                                </div>
                             </div>
-                          </div>
-                    </ul>
+                        </ul>
+                    {{/each}}
+                </div> 
             </div>
         </div>
-        </script>
-        <script id='welcome-page-template' type="text/x-handlebars-template">
-        
-        </script>
+    </script>
+    <script id='welcome-page-template' type="text/x-handlebars-template">
+    </script>
     <script id='search-activities-template' type="text/x-handlebars-template">
     </script>
     <script id='my-profile-template' type="text/x-handlebars-template">
