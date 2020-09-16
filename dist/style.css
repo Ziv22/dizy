@@ -188,8 +188,13 @@ a {
     justify-self: center;
     margin: 15px;
   }
-  
-@-webkit-keyframes fadeInDown {
+
+  .activities-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+  }
+/* @-webkit-keyframes fadeInDown {
   0% {
     opacity: 0;
     -webkit-transform: translate3d(0, -100%, 0);
@@ -215,7 +220,7 @@ a {
     -webkit-transform: none;
     transform: none;
   }
-}
+} */
 
 
 

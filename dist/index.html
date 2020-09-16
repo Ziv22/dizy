@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="style.css">
+    
     <title>Dizy App</title>
 </head>
 
@@ -84,6 +85,7 @@
             </div>
     </script>
 
+
     <script id='interest-template' type="text/x-handlebars-template">
         <div id="intrests-container">
             <div class="container-sm">
@@ -106,18 +108,47 @@
         </div>
     </script>
     <script id='welcome-page-template' type="text/x-handlebars-template">
-        <div class="header">
-            <button id="search-button">GO</button>
-        </div>
-        <div class="navbar"></div>
-        <div class="content">
-            <h1>Hola</h1>
-        </div>
+    <h1>HELLO</h1>
+    <div class="content"></div>
     </script>
+
     <script id='search-activities-template' type="text/x-handlebars-template">
-        <h1>hello</h1>
+        <div class="activities-container">
+            {{#each data}}
+                <div class="card" style="width: 18rem;">
+                    <img src={{image}} class="card-img-top" alt="..." width="200px">
+                    <div class="card-body">
+                        <h5 class="card-title">{{name}}</h5>
+                        <p class="card-text">
+                            {{date}}<br>
+                            {{location.country}}, {{location.city}}<br>
+                            {{location.street}}, {{location.number}}<br>
+                            {{price}}
+                        </p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
     </script>
+
     <script id='my-profile-template' type="text/x-handlebars-template">
+        <div class="profile-details">
+            <h1>My profile</h1>
+            <h3>Personal info</h3>
+            {{#each data}}
+                <p>First Name: {{firstName}}</p>
+                <p>last Name:{{lastName}}</p>
+                <p>Country: {{address.country}} City: {{address.city}}</p>
+                <p>Street: {{address.street}} Number: {{address.number}}</p>
+                <p>Phone: {{contactDetails.phone}} Email: {{contactDetails.email}}</p>
+            {{/each}}
+        </div>
+        <h3>My activities</h3>
+        <h5>Created by me</h5>
+        <div class="creator-activities-container"></div>
+        <h5>Participant</h5>
+        <div class="participant-activities-container"></div>
     </script>
     <script id='edit-profile-template' type="text/x-handlebars-template">
     </script>
@@ -129,6 +160,7 @@
     <script src="bootstrap/dist/js/bootstrap.js"></script>
     <script src="bootstrap/dist/css/bootstrap.css"></script>
     <script src="handlebars/dist/handlebars.js"></script>
+    
     <script src="render.js"></script>
     <script src="userModel.js"></script>
     <script src="main.js"></script>
