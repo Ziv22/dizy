@@ -13,57 +13,33 @@ const getGeoLocation = async function(country, city, street, number) {
 }
 
 const loadPage = function() {
-    render.renderContainerFluid('#log-in-template')
+    render.renderContent('#log-in-template', '.container-fluid')
 }
 
 const loadLoggedIn = async function() {
     // await user.searchActivity({ tags: user.interests })
-    const activities = [
-        {
-            _id: "5f60bdf5258a5c2fb0a7a287",
-              tags: [],
-              participants: [],
-              isHappening: true,
-              name: 'Gogoim',
-              image: "https://i.ytimg.com/vi/0JV5NSyp5HY/hqdefault.jpg",
-              date: "1970-01-01T00:00:00.000Z",
-              location: {
-                country: "Israel",
-                city: "Nili",
-                street: "oren",
-                number: "119",
-                lat: 31.965329,
-                lng: 35.050868
-              },
-              creator: "5f609283922ac53d044c4ff9",
-              price: 34,
-              participantLimit: 17,
-        },
-        {
-            _id: "5f60bdf5258a5c2fb0a7a287",
-              tags: [],
-              participants: [],
-              isHappening: true,
-              name: 'Gogoim',
-              image: "https://i.ytimg.com/vi/0JV5NSyp5HY/hqdefault.jpg",
-              date: "1970-01-01T00:00:00.000Z",
-              location: {
-                country: "Israel",
-                city: "Nili",
-                street: "oren",
-                number: "119",
-                lat: 31.965329,
-                lng: 35.050868
-              },
-              creator: "5f609283922ac53d044c4ff9",
-              price: 34,
-              participantLimit: 17,
-        }
-    ]
-    render.renderToContent('#my-profile-template', [user])
-    render.renderActivities('#search-activities-template', '.creator-activities-container', user.activities.creator)
-    render.renderActivities('#search-activities-template', '.participant-activities-container', user.activities.participant)
+    render.renderContent('#welcome-page-template', '.container-fluid')
+    render.renderContent('#my-profile-template', '.content', [user])
+    console.log(user.activities.creator, user.activities.participant)
+    render.renderContent('#activities-template', '.creator-activities-container', user.activities.creator)
+    render.renderContent('#activities-template', '.participant-activities-container', user.activities.participant)
 }
+
+$('.container-fluid').on('click', '#log-in-submit', async function() {
+
+    const   email = $('#email-login').val(),
+            password = $('#password-login').val()
+
+    const newUser = await user.getUser(email, password)
+    await user.getAllInterests()
+    if(newUser) {
+        render.renderContent('#welcome-page-template', '.container-fluid', user)
+        loadLoggedIn()
+    }
+    else {
+        render.renderLogInError()
+    }
+})
 
 $('.container-fluid').on('click', '.new-user', function() {
     render.renderContainerFluid('#sign-up-template')
@@ -87,8 +63,8 @@ $('.container-fluid').on('click', '#next-sign-up', async function() {
     address['number'] = number
     newUserObject = { firstName, lastName, address, contactDetails: {phone, email}, password, interests: []}
     user.saveUserDetails(newUserObject)
-    const allInterests = await user.getAllInterests()
-    render.renderContainerFluid('#interest-template', allInterests)
+    await user.getAllInterests()
+    render.renderContent('#interest-template', '.container-fluid', user.allInterests)
 })
 
 $('.container-fluid').on('click', '#submit-sign-up', async function() {
@@ -96,21 +72,10 @@ $('.container-fluid').on('click', '#submit-sign-up', async function() {
         newUserObject.interests.push($(this).val())
     })
     user.createUser(newUserObject)
-    render.renderContainerFluid('#welcome-page-template', user)
+    render.renderContent('#welcome-page-template', '.cotainer-fluid', user)
 })
 
-$('.container-fluid').on('click', '#log-in-submit', async function() {
-    const   email = $('#email-login').val(),
-            password = $('#password-login').val()
-    const newUser = await user.getUser(email, password)
-    if(newUser) {
-        render.renderContainerFluid('#welcome-page-template', user)
-        loadLoggedIn()
-    }
-    else {
-        render.renderLogInError()
-    }
-})
+
 
 // $('.container-fluid').on('click', '.join-activity', async () => {
 //     const activityId = $(this).closest('.activity').data().id

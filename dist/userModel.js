@@ -7,7 +7,7 @@ class User {
         this.contactDetails = userObj.contactDetails
         this.password = userObj.password
         this.interests = userObj.interests 
-        this.activities = userObj.activites || { creator: [], participant: [] }
+        this.activities = userObj.activities || { creator: [], participant: [] }
     }
     /*making a get request to the server with the email & password 
     parameters and saved the user id that comes from the DB */
@@ -27,7 +27,6 @@ class User {
     the user and saves it to the user variables */
     createUser = async (userObj) => {
         const newUsrInDb = await $.post('/user', userObj)
-        console.log(newUsrInDb)
         this.id = newUsrInDb['_id']
     }
 
