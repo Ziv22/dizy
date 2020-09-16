@@ -13,11 +13,60 @@ const getGeoLocation = async function(country, city, street, number) {
 }
 
 const loadPage = function() {
-    render.renderContent('#log-in-template')
+    render.renderContainerFluid('#log-in-template')
+}
+
+const loadLoggedIn = async function() {
+    // await user.searchActivity({ tags: user.interests })
+    const activities = [
+        {
+            _id: "5f60bdf5258a5c2fb0a7a287",
+              tags: [],
+              participants: [],
+              isHappening: true,
+              name: 'Gogoim',
+              image: "https://i.ytimg.com/vi/0JV5NSyp5HY/hqdefault.jpg",
+              date: "1970-01-01T00:00:00.000Z",
+              location: {
+                country: "Israel",
+                city: "Nili",
+                street: "oren",
+                number: "119",
+                lat: 31.965329,
+                lng: 35.050868
+              },
+              creator: "5f609283922ac53d044c4ff9",
+              price: 34,
+              participantLimit: 17,
+        },
+        {
+            _id: "5f60bdf5258a5c2fb0a7a287",
+              tags: [],
+              participants: [],
+              isHappening: true,
+              name: 'Gogoim',
+              image: "https://i.ytimg.com/vi/0JV5NSyp5HY/hqdefault.jpg",
+              date: "1970-01-01T00:00:00.000Z",
+              location: {
+                country: "Israel",
+                city: "Nili",
+                street: "oren",
+                number: "119",
+                lat: 31.965329,
+                lng: 35.050868
+              },
+              creator: "5f609283922ac53d044c4ff9",
+              price: 34,
+              participantLimit: 17,
+        }
+    ]
+    render.renderToContent('#my-profile-template', [user])
+    render.renderActivities('#search-activities-template', '.creator-activities-container', user.activities.creator)
+    render.renderActivities('#search-activities-template', '.participant-activities-container', user.activities.participant)
 }
 
 $('.container-fluid').on('click', '.new-user', function() {
-    render.renderContent('#sign-up-template')
+    render.renderContainerFluid('#sign-up-template')
 })
 
 $('.container-fluid').on('click', '#next-sign-up', async function() {
@@ -39,7 +88,7 @@ $('.container-fluid').on('click', '#next-sign-up', async function() {
     newUserObject = { firstName, lastName, address, contactDetails: {phone, email}, password, interests: []}
     user.saveUserDetails(newUserObject)
     const allInterests = await user.getAllInterests()
-    render.renderContent('#interest-template', allInterests)
+    render.renderContainerFluid('#interest-template', allInterests)
 })
 
 $('.container-fluid').on('click', '#submit-sign-up', async function() {
@@ -47,7 +96,7 @@ $('.container-fluid').on('click', '#submit-sign-up', async function() {
         newUserObject.interests.push($(this).val())
     })
     user.createUser(newUserObject)
-    render.renderContent('#welcome-page-template', user)
+    render.renderContainerFluid('#welcome-page-template', user)
 })
 
 $('.container-fluid').on('click', '#log-in-submit', async function() {
@@ -55,7 +104,8 @@ $('.container-fluid').on('click', '#log-in-submit', async function() {
             password = $('#password-login').val()
     const newUser = await user.getUser(email, password)
     if(newUser) {
-        render.renderContent('#welcome-page-template', user)
+        render.renderContainerFluid('#welcome-page-template', user)
+        loadLoggedIn()
     }
     else {
         render.renderLogInError()
@@ -69,7 +119,7 @@ $('.container-fluid').on('click', '#log-in-submit', async function() {
 // })
 
 
-$('.container-fluid').on('click', '#search-button', function(){
-    render.renderDivContent('#search-activities-template')
-})
+// $('.container-fluid').on('click', '#search-button', function(){
+//     render.renderDivContent('#search-activities-template')
+// })
 loadPage()

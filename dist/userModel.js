@@ -7,7 +7,7 @@ class User {
         this.contactDetails = userObj.contactDetails
         this.password = userObj.password
         this.interests = userObj.interests 
-        this.activities = userObj.activities || { creator: [], participant: [] }
+        this.activities = userObj.activites || { creator: [], participant: [] }
     }
     /*making a get request to the server with the email & password 
     parameters and saved the user id that comes from the DB */
@@ -63,7 +63,7 @@ class User {
 
     async getAllInterests() {
         let AllInterests = await $.get('/interests')
-        AllInterests = AllInterests.splice(21, 6000)
+        user.allInterests = AllInterests
         return AllInterests
     }
 
