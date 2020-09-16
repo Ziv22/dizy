@@ -1,4 +1,4 @@
-const { update } = require("../model/User")
+// const { update } = require("../model/User")
 
 const express = require("express"),
     router = express.Router(),
@@ -14,12 +14,19 @@ router.post('/user', async (req, res) => {
 router.get('/user/:email/:password?', async (req, res) => {
         const userEmail = req.params.email
         const userPassword = req.params.password
-        const findUserByEmailAndPassword = User.findOne({ $and: [
+        await User.findOne({ $and: [
             { "contactDetails.email": userEmail }, 
             userPassword ? {'password': userPassword} : {'password': {$exists: true}}
         ] 
+    }
+    ).populate({
+        path: 'activities',
+        populate: {
+            path: 'creator participant',
+        }
     })
-        findUserByEmailAndPassword.exec(function(err, user) {   
+    .populate('interests')
+    .exec(function(err, user) {   
             if (err) {
                 res.send(err)
             } else{
@@ -40,5 +47,12 @@ router.put('/user/:userId', async (req, res) => {
         res.send(err)
     }
 })
+
+// User.find({}).populate({
+//     path: 'activities',
+//     populate: {
+//         path: 'creator',
+//         path: 'participant'
+// }})
 
 module.exports = router

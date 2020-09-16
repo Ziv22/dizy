@@ -19,12 +19,15 @@ const UserSchema = new Schema({
         email:String
      },
     password: String,
-    interests: [{type: Schema.Types.ObjectId, ref:"Activity"}], //reference to: activity-ids
+    interests: [{type: Schema.Types.ObjectId, ref:"Interest"}], //reference to: activity-ids
     activities:{
         creator:[{type: Schema.Types.ObjectId, ref:"Activity"}], //reference to: activity-ids
         participant: [{type: Schema.Types.ObjectId, ref:"Activity"}] //reference to: activity-ids
 }
 })
+
+
+
 
 const User = mongoose.model("User", UserSchema)
 
