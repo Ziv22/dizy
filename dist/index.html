@@ -93,14 +93,12 @@
             <div class="container-sm">
                 <div id="interests">
                     {{#each data}}
-                        {{#each allInterests}}
                         <div class="card" style="width: 18rem; background-image: url('{{imgUrl}}')">
                             <input class="card-checkbox" type="checkbox" name="interst" value={{_id}}>
                             <h3 class="card-title">{{tagName}}</h3>
                             <div class="title-wraper">
                             </div>
                         </div>
-                        {{/each}}
                     {{/each}}
                 </div> 
             </div>
