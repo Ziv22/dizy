@@ -45,13 +45,10 @@ router.delete('/activity/:activityId', async (req, res) =>{
     }
 })
 
-
-
 router.get('/activity', async (req, res)=>{
     try{
         let {startDate, endDate, tags, city, name }  = req.query
         // const parsedTags =  JSON.parse(tags)
-
         const getQuery = () =>{
             let query = {}
             query["$and"] = []
@@ -88,8 +85,6 @@ router.get('/activity', async (req, res)=>{
             }
             return query
         }
-        
-        
         const query = getQuery()
         const activities = await Activity.find(query)
         res.send(activities)
