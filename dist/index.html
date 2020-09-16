@@ -92,21 +92,30 @@
                     {{#each data}}
                         <ul>
                             <div class="card" style="width: 18rem;">
-                                <img src="{{tagUrl}}" class="card-img-top">
+                                <img src="{{imgUrl}}" class="card-img-top">
                                 <div class="card-body">
                                     <h5 class="card-title">{{tagName}}</h5>
-                                    <input type="checkbox" name="interst" value="add">
+                                    <input class="interestCard" type="checkbox" name="interst" value={{_id}}>
                                 </div>
                             </div>
                         </ul>
                     {{/each}}
                 </div> 
+                <button id="submit-sign-up">Sign Up</button>
             </div>
         </div>
     </script>
     <script id='welcome-page-template' type="text/x-handlebars-template">
+        <div class="header">
+            <button id="search-button">GO</button>
+        </div>
+        <div class="navbar"></div>
+        <div class="content">
+            <h1>Hola</h1>
+        </div>
     </script>
     <script id='search-activities-template' type="text/x-handlebars-template">
+        <h1>hello</h1>
     </script>
     <script id='my-profile-template' type="text/x-handlebars-template">
     </script>

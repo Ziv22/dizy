@@ -1,25 +1,12 @@
 class User {
 
-    constructor() {
-        this.id = ''
-        this.firstName = ''
-        this.lastName = ''
-        this.address = {}
-        this.contactDetails = {}
-        this.password = ''
-        this.activities = {}
-        this.interests = []
-        this.searchedActivities = []
-    }
-
     saveUserDetails = (userObj) => {
-        this.id = userObj['_id'] 
         this.firstName = userObj.firstName
         this.lastName = userObj.lastName
         this.address = userObj.address
         this.contactDetails = userObj.contactDetails
         this.password = userObj.password
-        this.interests = userObj.interests || []
+        this.interests = userObj.interests 
         this.activities = userObj.activities || { creator: [], participant: [] }
     }
     /*making a get request to the server with the email & password 
@@ -28,6 +15,7 @@ class User {
         const userInDb = await $.get(`/user/${email}/${password}`)
         if(userInDb) {
             this.saveUserDetails(userInDb)
+            this.id = userInDb['_id']
             return true
         } else { 
             return false  
@@ -37,8 +25,9 @@ class User {
 
     /*making a post request to the server with all the data from 
     the user and saves it to the user variables */
-    async createUser(userObj)  {
+    createUser = async (userObj) => {
         const newUsrInDb = await $.post('/user', userObj)
+        console.log(newUsrInDb)
         this.id = newUsrInDb['_id']
     }
 
