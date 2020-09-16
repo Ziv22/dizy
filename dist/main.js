@@ -20,8 +20,10 @@ const loadPage = async function() {
 
 const loadLoggedIn = async function() {
     await user.searchActivity({ tags: user.interests })
+
     render.renderContent('#welcome-page-template', '.container-fluid', [user])
     render.renderContent('#activities-template', '.content', user.searchedActivities)
+
 }
 
 $('.container-fluid').on('click', '#log-in-submit', async function() {
@@ -67,6 +69,7 @@ $('.container-fluid').on('click', '#submit-sign-up', async function() {
     })
     user.createUser(newUserObject)
     loadLoggedIn()
+
 })
 
 $('.container-fluid').on('click', '#submit-activity', async () => {

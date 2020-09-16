@@ -106,47 +106,56 @@
 
     </script>
     <script id='welcome-page-template' type="text/x-handlebars-template">
-
+        <div class="fadeIn first">
+            <img src="./source/logo.png" id="icon" alt="User Icon" />
+        </div>
+        <div class="fadeIn second">
         <div id="welcome-body">
+            {{#each data}}
             <nav>
-                <h5>Hello {{data.firstName}}</h5>
                 <ul class="nav nav-pills">
                     <li class="nav-item">
-                        <button class="nav-link active" id="Home">Home</button>
+                        <button class="nav-link btn" id="Home">Home</button>
                     </li>
                     <li class="nav-item">
-                        <button class="nav-link" id="My-Profile">My-Profile</button>
+                        <button class="nav-link btn" id="My-Profile">My-Profile</button>
                     </li>
                     <li class="nav-item">
-                        <button class="nav-link" id="Create">Create</button>
+                        <button class="nav-link btn" id="Create">Create</button>
                     </li>
                 </ul>
+                <h5 class="hello-user">Hello {{firstName}}</h5>
             </nav>
             <header id="sticky-header">
                 <div id="search-div">
+                    <div id="search-text-wraper">
+                        <input type="text" id="activity-name" class="form-control search-input" placeholder="Enter activity name or keywords...">
+                    </div>
                     <div class="form-group dateSelect">
                         <label for="startD">From</label>
-                        <input type="date" class="form-control col-4" id="startD">
+                        <input type="date" class="form-control search-input" id="startD">
                         <label for="endD">To</label>
-                        <input type="date" class="form-control col-4" id="endD">
+                        <input type="date" class="form-control search-input" id="endD">
                     </div>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          Select interst
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            {{#each allInterest}}
-                                <a class="dropdown-item" href="{{tagName}}">{{tagName}}</a>
+                    <div class="interests-dropdown form-group tagsSelect">
+                        <label for="interests-select">Tags</label>
+                        <select name="interests-select" id="interests-select" multiple size="5">
+                            {{#each allInterests}}
+                            <option class="interest-item" value="{{tagName}}">{{tagName}}</option>
                             {{/each}}
-                        </div>
-                      </div>
-                            
+                        </select>
+                    </div>                    
+                    <div id="search-activity"class="btn btn-primary">Search</div>
+                    </div>
+                </div>
             </header>
-            
+            <hr>
             <div class="content">
+                <h1>You might like</h1>
             </div>
+            {{/each}}
         </div>
-
+        
     </script>
 
     <script id='activities-template' type="text/x-handlebars-template">
