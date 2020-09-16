@@ -93,14 +93,12 @@
             <div class="container-sm">
                 <div id="interests">
                     {{#each data}}
-
                         <div class="card" style="width: 18rem; background-image: url('{{imgUrl}}')">
-                            <input class="card-checkbox" type="checkbox" name="interst" value={{_id}}>
+                            <input class="card-checkbox" type="checkbox" name="interst" value='{{_id}}'>
                             <h3 class="card-title">{{tagName}}</h3>
                             <div class="title-wraper">
                             </div>
                         </div>
-
                     {{/each}}
                 </div> 
             </div>
@@ -143,7 +141,7 @@
                         <label for="interests-select">Tags</label>
                         <select name="interests-select" id="interests-select" multiple size="5">
                             {{#each allInterests}}
-                            <option class="interest-item" value="{{tagName}}">{{tagName}}</option>
+                                <option data-id='{{_id}}' class="interest-item" value="{{tagName}}">{{tagName}}</option>
                             {{/each}}
                         </select>
                     </div>                    
@@ -164,10 +162,10 @@
         <div class="activities-container">
             {{#if data}}
                 {{#each data}}
-                    <div class="card" style="width: 18rem;" data-id={{this}}>
+                    <div class="card" style="width: 18rem;" data-id={{_id}}>
                         <img src={{image}} class="card-img-top" alt="..." width="200px">
                         <div class="card-body">
-                            <h5 class="card-title">{{this}}</h5>
+                            <h5 class="card-title">{{name}}</h5>
                             <p class="card-text">
                                 {{date}}<br>
                                 {{location.country}}, {{location.city}}<br>
@@ -260,7 +258,7 @@
                         <select name="tags" id="new-activity-tag" multiple size="5">
                             {{#each data}}
                                 {{#each allInterests}}
-                                    <option value={{_id}}>{{tagName}}</option>
+                                    <option data-id='{{_id}}' value={{tagName}}>{{tagName}}</option>
                                 {{/each}}
                             {{/each}}
                         </select>

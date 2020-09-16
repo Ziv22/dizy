@@ -14,6 +14,7 @@ class User {
     getUser = async (email, password) => {
         const userInDb = await $.get(`/user/${email}/${password}`)
         if(userInDb) {
+            console.log(userInDb)
             this.saveUserDetails(userInDb)
             this.id = userInDb['_id']
             return true
@@ -69,6 +70,7 @@ class User {
     async searchActivity(searchObj) {
         let queryParams = ''
         const { startDate, endDate, tags, city, name } = searchObj //if a data is not given it will send undifined
+        console.log(startDate, endDate)
         if(startDate) {
             queryParams += `startDate=${startDate}&`
         }
@@ -85,6 +87,7 @@ class User {
         if(name) {
             queryParams += `name=${name}&`
         }
+        console.log(queryParams)
         const requiredActivities = await $.get(`/activity/?${queryParams}`)
         this.searchedActivities = requiredActivities
     }
