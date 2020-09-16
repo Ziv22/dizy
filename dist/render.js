@@ -1,20 +1,6 @@
 class Render {
-    renderContainerFluid = function(templateDiv, data = []) {
-        const src = $(templateDiv).html()
-        const template = Handlebars.compile(src)
-        const newHTML = template({data})
-        $('.container-fluid').empty().append(newHTML)
-    }
 
-    renderToContent = function(templateDiv, data = []) {
-        console.log(data)
-        const src = $(templateDiv).html()
-        const template = Handlebars.compile(src)
-        const newHTML = template({data})
-        $('.content').empty().append(newHTML)
-    }
-
-    renderActivities = function(templateDiv, divToAppend, data = []) {
+    renderContent = function(templateDiv, divToAppend, data = []) {
         const src = $(templateDiv).html()
         const template = Handlebars.compile(src)
         const newHTML = template({data})
@@ -23,5 +9,10 @@ class Render {
 
     renderLogInError() {
         $('#error-login').css('visibility', 'visible')
+    }
+
+    renderActivitiyAdded(activityObj) {
+        $('.content').empty().append(`<h1>Your activity ${activityObj.name} has been added Successfully</h1>
+        <p>You can now look for it in your profile page.</p>`)
     }
 }

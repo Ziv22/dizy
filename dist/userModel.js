@@ -7,7 +7,7 @@ class User {
         this.contactDetails = userObj.contactDetails
         this.password = userObj.password
         this.interests = userObj.interests 
-        this.activities = userObj.activites || { creator: [], participant: [] }
+        this.activities = userObj.activities || { creator: [], participant: [] }
     }
     /*making a get request to the server with the email & password 
     parameters and saved the user id that comes from the DB */
@@ -27,7 +27,6 @@ class User {
     the user and saves it to the user variables */
     createUser = async (userObj) => {
         const newUsrInDb = await $.post('/user', userObj)
-        console.log(newUsrInDb)
         this.id = newUsrInDb['_id']
     }
 
@@ -39,14 +38,12 @@ class User {
             url: `/user/${this.id}`,
             data: updatedUserObject
         })
-        console.log(updatedUser)
         this.saveUserDetails(updatedUser)
     }
 
     /*making a post request to the server with the activities details 
     and saves it in the activities creator array */
     createActivity = async (activityObj) => {
-        console.log(this)
         const newActivity = await $.post('/activity', activityObj)
         this.activities.creator.push(newActivity) 
     }
@@ -70,9 +67,24 @@ class User {
     /*sends a get request to the server  with the required details and 
     returns an array of the activities results  */
     async searchActivity(searchObj) {
+        let queryParams = ''
         const { startDate, endDate, tags, city, name } = searchObj //if a data is not given it will send undifined
-        const stringTags = JSON.stringify(tags)
-        const queryParams = `startDate=${startDate}&endDate=${endDate}&tags=${stringTags}&location.city=${city}&name=${name}`
+        if(startDate) {
+            queryParams += `startDate=${startDate}&`
+        }
+        if(endDate) {
+            queryParams += `endDate=${endDate}&`
+        }
+        if(tags) {
+            const stringTags = JSON.stringify(tags)
+            queryParams += `tags=${stringTags}&`
+        }
+        if(city) {
+            queryParams += `city=${city}&`
+        }
+        if(name) {
+            queryParams += `name=${name}&`
+        }
         const requiredActivities = await $.get(`/activity/?${queryParams}`)
         this.searchedActivities = requiredActivities
     }

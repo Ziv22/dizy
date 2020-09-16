@@ -12,61 +12,34 @@ const getGeoLocation = async function(country, city, street, number) {
     return objToSend
 }
 
-const loadPage = function() {
-    render.renderContainerFluid('#log-in-template')
+const loadPage = async function() {
+    await user.getAllInterests()
+    render.renderContent('#log-in-template', '.container-fluid', [user])
+    
 }
 
 const loadLoggedIn = async function() {
-    // await user.searchActivity({ tags: user.interests })
-    const activities = [
-        {
-            _id: "5f60bdf5258a5c2fb0a7a287",
-              tags: [],
-              participants: [],
-              isHappening: true,
-              name: 'Gogoim',
-              image: "https://i.ytimg.com/vi/0JV5NSyp5HY/hqdefault.jpg",
-              date: "1970-01-01T00:00:00.000Z",
-              location: {
-                country: "Israel",
-                city: "Nili",
-                street: "oren",
-                number: "119",
-                lat: 31.965329,
-                lng: 35.050868
-              },
-              creator: "5f609283922ac53d044c4ff9",
-              price: 34,
-              participantLimit: 17,
-        },
-        {
-            _id: "5f60bdf5258a5c2fb0a7a287",
-              tags: [],
-              participants: [],
-              isHappening: true,
-              name: 'Gogoim',
-              image: "https://i.ytimg.com/vi/0JV5NSyp5HY/hqdefault.jpg",
-              date: "1970-01-01T00:00:00.000Z",
-              location: {
-                country: "Israel",
-                city: "Nili",
-                street: "oren",
-                number: "119",
-                lat: 31.965329,
-                lng: 35.050868
-              },
-              creator: "5f609283922ac53d044c4ff9",
-              price: 34,
-              participantLimit: 17,
-        }
-    ]
-    render.renderToContent('#my-profile-template', [user])
-    render.renderActivities('#search-activities-template', '.creator-activities-container', user.activities.creator)
-    render.renderActivities('#search-activities-template', '.participant-activities-container', user.activities.participant)
+    await user.searchActivity({ tags: user.interests.map(i => i['_id']) })
+
+    render.renderContent('#welcome-page-template', '.container-fluid', [user])
+    render.renderContent('#search-activities-template', '.content', user.searchedActivities)
+
 }
 
+$('.container-fluid').on('click', '#log-in-submit', async function() {
+    const   email = $('#email-login').val(),
+            password = $('#password-login').val()
+    const newUser = await user.getUser(email, password)   
+    if(newUser) {
+        loadLoggedIn()
+    }
+    else {
+        render.renderLogInError()
+    }
+})
+
 $('.container-fluid').on('click', '.new-user', function() {
-    render.renderContainerFluid('#sign-up-template')
+    render.renderContent('#sign-up-template' ,'.container-fluid')
 })
 
 $('.container-fluid').on('click', '#next-sign-up', async function() {
@@ -87,39 +60,65 @@ $('.container-fluid').on('click', '#next-sign-up', async function() {
     address['number'] = number
     newUserObject = { firstName, lastName, address, contactDetails: {phone, email}, password, interests: []}
     user.saveUserDetails(newUserObject)
-    const allInterests = await user.getAllInterests()
-    render.renderContainerFluid('#interest-template', allInterests)
+    render.renderContent('#interest-template', '.container-fluid', user.allInterests)
 })
 
 $('.container-fluid').on('click', '#submit-sign-up', async function() {
-    $('.interestCard:checked').each(function(){
-        newUserObject.interests.push($(this).val())
+    $('.card-checkbox:checked').each(function(){
+        user.interests.push($(this).val())
     })
     user.createUser(newUserObject)
-    render.renderContainerFluid('#welcome-page-template', user)
+    loadLoggedIn()
+
 })
 
-$('.container-fluid').on('click', '#log-in-submit', async function() {
-    const   email = $('#email-login').val(),
-            password = $('#password-login').val()
-    const newUser = await user.getUser(email, password)
-    if(newUser) {
-        render.renderContainerFluid('#welcome-page-template', user)
-        loadLoggedIn()
-    }
-    else {
-        render.renderLogInError()
-    }
+$('.container-fluid').on('click', '#submit-activity', async () => {
+    const newActivityObj = {}
+    newActivityObj.name = $('#new-activity-title').val()
+    newActivityObj.image = $('#new-activity-image').val()
+    newActivityObj.date = $('#new-activity-date').val()
+    const country = $('#new-activity-country').val()
+    const city = $('#new-activity-city').val()
+    const street = $('#new-activity-street').val()
+    const number = $('#new-activity-number').val()
+    const location = await getGeoLocation(country, city, street, number)
+    newActivityObj['location'] = {country, city, street, number, location}
+    newActivityObj.isHappening = true
+    newActivityObj.tags = [...$("#new-activity-tag :selected")]
+    for(let t in newActivityObj.tags){ newActivityObj.tags[t] = $(newActivityObj.tags[t]).data().id }
+    newActivityObj.creator = user.id
+    newActivityObj.price = $('#new-activity-price').val()
+    newActivityObj.participantsLimit = $('#new-activity-participants').val()
+    user.createActivity(newActivityObj)
+    render.renderActivitiyAdded(newActivityObj)
 })
 
-// $('.container-fluid').on('click', '.join-activity', async () => {
-//     const activityId = $(this).closest('.activity').data().id
-//     user.enrollToActivity(activityId)
-//     render.renderContent('#welcome-page-template', user)
-// })
+$('.container-fluid').on('click', '#My-Profile', async () => {
+    render.renderContent('#my-profile-template', '.content', [user])
+    render.renderContent('#user-activities-template', '.creator-activities-container', user.activities.creator)
+    render.renderContent('#user-activities-template', '.participant-activities-container', user.activities.participant)
+})
 
+$('.container-fluid').on('click', '#Create', async () => {
+    render.renderContent('#create-activity-template', '.content', [user])
+})
 
-// $('.container-fluid').on('click', '#search-button', function(){
-//     render.renderDivContent('#search-activities-template')
-// })
+$('.container-fluid').on('click', '#Home', async () => {
+    loadLoggedIn()
+})
+$('.container-fluid').on('click', '#search-activity', async function(){
+    const   name = $('#activity-name').val(),
+            startDate = $('#startD').val(),
+            endDate = $('#endD').val()
+    let tags       
+    if($("#interests-select :selected").lengt > 0 ){
+        tags = [...$("#interests-select :selected")]
+        for(let t in tags){ tags[t] = $(tags[t]).data().id }
+    } else {
+        tags = undefined
+    }
+    const searchObj = { name, startDate, endDate, tags }
+    await user.searchActivity(searchObj)
+    render.renderContent('#search-activities-template', '.content', user.searchedActivities)
+})
 loadPage()

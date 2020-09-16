@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="style.css">
-    
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
     <title>Dizy App</title>
 </head>
 
@@ -87,47 +87,121 @@
 
 
     <script id='interest-template' type="text/x-handlebars-template">
-        <div id="intrests-container">
+        <div id="interests-container">
+            <h2 id="interests-header">Choose your favorite intrests</h2>
+            <button id="submit-sign-up">Sign Up</button>
             <div class="container-sm">
-                <h2>Choose your favorite intrests</h2>
-                <div id="intrests">
+                <div id="interests">
                     {{#each data}}
-                        <ul>
-                            <div class="card" style="width: 18rem;">
-                                <img src="{{imgUrl}}" class="card-img-top">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{tagName}}</h5>
-                                    <input class="interestCard" type="checkbox" name="interst" value={{_id}}>
-                                </div>
+                        <div class="card" style="width: 18rem; background-image: url('{{imgUrl}}')">
+                            <input class="card-checkbox" type="checkbox" name="interst" value='{{_id}}'>
+                            <h3 class="card-title">{{tagName}}</h3>
+                            <div class="title-wraper">
                             </div>
-                        </ul>
+                        </div>
                     {{/each}}
                 </div> 
-                <button id="submit-sign-up">Sign Up</button>
             </div>
         </div>
 
     </script>
     <script id='welcome-page-template' type="text/x-handlebars-template">
+        <div class="fadeIn first">
+            <img src="./source/logo.png" id="icon" alt="User Icon" />
+        </div>
+        <div class="fadeIn second">
+        <div id="welcome-body">
+            {{#each data}}
+            <nav>
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <button class="nav-link btn" id="Home">Home</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link btn" id="My-Profile">My-Profile</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link btn" id="Create">Create</button>
+                    </li>
+                </ul>
+                <h5 class="hello-user">Hello {{firstName}}</h5>
+            </nav>
+            <header id="sticky-header">
+                <div id="search-div">
+                    <div id="search-text-wraper">
+                        <input type="text" id="activity-name" class="form-control search-input" placeholder="Enter activity name or keywords...">
+                    </div>
+                    <div class="form-group dateSelect">
+                        <label for="startD">From</label>
+                        <input type="date" class="form-control search-input" id="startD">
+                        <label for="endD">To</label>
+                        <input type="date" class="form-control search-input" id="endD">
+                    </div>
+                    <div class="interests-dropdown form-group tagsSelect">
+                        <label for="interests-select">Tags</label>
+                        <select name="interests-select" id="interests-select" multiple size="5">
+                            {{#each allInterests}}
+                                <option data-id='{{_id}}' class="interest-item" value="{{tagName}}">{{tagName}}</option>
+                            {{/each}}
+                        </select>
+                    </div>                    
+                    <div id="search-activity"class="btn btn-primary">Search</div>
+                    </div>
+                </div>
+            </header>
+            <hr>
+            <div class="content">
+                <h1>You might like</h1>
+            </div>
+            {{/each}}
+        </div>
+        
     </script>
 
     <script id='search-activities-template' type="text/x-handlebars-template">
         <div class="activities-container">
-            {{#each data}}
-                <div class="card" style="width: 18rem;">
-                    <img src={{image}} class="card-img-top" alt="..." width="200px">
-                    <div class="card-body">
-                        <h5 class="card-title">{{name}}</h5>
-                        <p class="card-text">
-                            {{date}}<br>
-                            {{location.country}}, {{location.city}}<br>
-                            {{location.street}}, {{location.number}}<br>
-                            {{price}}
-                        </p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            {{/each}}
+            {{#if data}}
+                {{#each data}}
+                    <div class="card" style="width: 18rem;" data-id={{_id}}>
+                        <img src={{image}} class="card-img-top" alt="..." width="200px">
+                        <div class="card-body">
+                            <h5 class="card-title">{{name}}</h5>
+                            <p class="card-text">
+                                {{date}}<br>
+                                {{location.country}}, {{location.city}}<br>
+                                {{location.street}}, {{location.number}}<br>
+                                {{price}}
+                            </p> 
+                            <a href="#" class="btn btn-primary join-activity">Join</a>
+                        </div>
+                    </div> 
+                {{/each}}
+            {{else}}
+                <p>No Activities To show</p>
+            {{/if}}
+        </div>
+    </script>
+
+    <script id='activities-template' type="text/x-handlebars-template">
+        <div class="user-activities-container">
+            {{#if data}}
+                {{#each data}}
+                    <div class="card" style="width: 18rem;" data-id={{_id}}>
+                        <img src={{image}} class="card-img-top" alt="..." width="200px">
+                        <div class="card-body">
+                            <h5 class="card-title">{{name}}</h5>
+                            <p class="card-text">
+                                {{date}}<br>
+                                {{location.country}}, {{location.city}}<br>
+                                {{location.street}}, {{location.number}}<br>
+                                {{price}}
+                            </p> 
+                        </div>
+                    </div> 
+                {{/each}}
+            {{else}}
+                <p>No Activities To show</p>
+            {{/if}}
         </div>
     </script>
 
@@ -136,13 +210,40 @@
             <h1>My profile</h1>
             <h3>Personal info</h3>
             {{#each data}}
-                <p>First Name: {{firstName}}</p>
-                <p>last Name:{{lastName}}</p>
-                <p>Country: {{address.country}} City: {{address.city}}</p>
-                <p>Street: {{address.street}} Number: {{address.number}}</p>
-                <p>Phone: {{contactDetails.phone}} Email: {{contactDetails.email}}</p>
+                <div id="personal-info-container">
+                    <div id="user-name">
+                        <h4 for="firstName">First Name:</h4>
+                        <p name="firstName">{{firstName}}</p>
+                    
+                        <h4 for="lastName">last Name:</h4>
+                        <p name="lastName">{{lastName}}</p>
+                    </div>
+    
+                    <div >
+                        <h4 for="country">Country:</h4>
+                        <p for="country"> {{address.country}} </p>
+    
+                        <h4 for="city">City:</h4>
+                        <p name="city">{{address.city}}</p>
+                    </div>
+                    <div>
+                        <h4 for="street">Street:</h4>
+                        <p name="street">{{address.street}} </p>
+    
+                        <h4 for="number">Number:</h4>
+                        <p name="number">{{address.number}}</p>
+                    </div>
+                    <div id="contact-info">
+                        <h4 for="phone">Phone:</h4>
+                        <p name="phone"> {{contactDetails.phone}} </p>
+    
+                        <h4 for="email">Email:</h4>
+                        <p name="email">{{contactDetails.email}}</p>
+                    </div>
+                </div>
             {{/each}}
         </div>
+        <hr>
         <h3>My activities</h3>
         <h5>Created by me</h5>
         <div class="creator-activities-container"></div>
@@ -152,6 +253,99 @@
     <script id='edit-profile-template' type="text/x-handlebars-template">
     </script>
     <script id='create-activity-template' type="text/x-handlebars-template">
+        <div id="create-activity-container">
+            <div class="fadeIn second">
+                <div id="new-activity-form">
+                    <h1>Create a new activity</h1>
+                
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Title</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Enter your activitiy title..." 
+                        id="new-activity-title" aria-label="title" aria-describedby="basic-addon1">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Description</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Enter a short activitiy description..." 
+                        id="new-activity-description" aria-describedby="basic-addon1">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Choose Tags</span>
+                        </div>
+                        <select name="tags" id="new-activity-tag" multiple size="5">
+                            {{#each data}}
+                                {{#each allInterests}}
+                                    <option data-id='{{_id}}' value={{tagName}}>{{tagName}}</option>
+                                {{/each}}
+                            {{/each}}
+                        </select>
+                    </div>
+
+                    <label>Address:</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Country</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Country" 
+                        id="new-activity-country" aria-describedby="basic-addon1">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">City</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="City" 
+                        id="new-activity-city" aria-describedby="basic-addon1">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Street</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Street Name" 
+                        id="new-activity-street" aria-describedby="basic-addon1">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Number</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Home number" 
+                        id="new-activity-number" aria-describedby="basic-addon1">
+                    </div>
+
+                    <label for="basic-url">Your image URL</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon3">https://example.com/image.jpg</span>
+                        </div>
+                        <input type="text" class="form-control" id="new-activity-image" aria-describedby="basic-addon3">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Date</span>
+                        </div>
+                            <input type="date" class="form-control" placeholder="DD/MM/YYYY" 
+                            id="new-activity-date" aria-describedby="basic-addon1">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Participants</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Maximum participants" 
+                        id="new-activity-participants" aria-describedby="basic-addon1">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Price</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Enter price" 
+                        id="new-activity-price" aria-describedby="basic-addon1">
+                    </div>
+                    <button id="submit-activity" class="btn btn-primary" type="submit">Submit Activity</button>
+                </div>
+            </div>
+        </div>
     </script>
 
 
@@ -159,7 +353,6 @@
     <script src="bootstrap/dist/js/bootstrap.js"></script>
     <script src="bootstrap/dist/css/bootstrap.css"></script>
     <script src="handlebars/dist/handlebars.js"></script>
-    
     <script src="render.js"></script>
     <script src="userModel.js"></script>
     <script src="main.js"></script>
