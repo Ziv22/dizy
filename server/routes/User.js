@@ -11,10 +11,20 @@ router.post('/user', async (req, res) => {
     res.send(saveUser)
 })
 
-router.get('/user/:email/:password', async (req, res) => {
+router.get('/user/:email/:password?', async (req, res) => {
         const userEmail = req.params.email
         const userPassword = req.params.password
-        const findUserByEmailAndPassword = User.findOne({ $and: [{ "contactDetails.email": userEmail }, { password: userPassword }] })
+        let findUser
+        if(userPassword){
+            findUser = User.findOne({ $and: [
+            { "contactDetails.email": userEmail },
+            {'password': userPassword}
+        ]
+    })} else {
+        findUser = User.findOne({
+            "contactDetails.email": userEmail 
+        })
+}
         findUserByEmailAndPassword.exec(function(err, user) {   
             if (err) {
                 res.send(err)
