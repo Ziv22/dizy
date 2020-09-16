@@ -87,10 +87,10 @@
 
 
     <script id='interest-template' type="text/x-handlebars-template">
-        <div id="intrests-container">
+        <div id="interests-container">
             <div class="container-sm">
                 <h2>Choose your favorite intrests</h2>
-                <div id="intrests">
+                <div id="interests">
                     {{#each data}}
                         <ul>
                             <div class="card" style="width: 18rem;">
@@ -109,6 +109,47 @@
 
     </script>
     <script id='welcome-page-template' type="text/x-handlebars-template">
+
+        <div id="welcome-body">
+            <nav>
+                <h5>Hello {{data.firstName}}</h5>
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <button class="nav-link active" id="Home">Home</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="My-Profile">My-Profile</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="Create">Create</button>
+                    </li>
+                </ul>
+            </nav>
+            <header id="sticky-header">
+                <div id="search-div">
+                    <div class="form-group dateSelect">
+                        <label for="startD">From</label>
+                        <input type="date" class="form-control col-4" id="startD">
+                        <label for="endD">To</label>
+                        <input type="date" class="form-control col-4" id="endD">
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Select interst
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            {{#each allInterest}}
+                                <a class="dropdown-item" href="{{tagName}}">{{tagName}}</a>
+                            {{/each}}
+                        </div>
+                      </div>
+                            
+            </header>
+            
+            <div class="content">
+            </div>
+        </div>
+
     </script>
 
     <script id='activities-template' type="text/x-handlebars-template">
