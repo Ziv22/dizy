@@ -75,6 +75,7 @@ $('.container-fluid').on('click', '#submit-sign-up', async function() {
 $('.container-fluid').on('click', '#submit-activity', async () => {
     const newActivityObj = {}
     newActivityObj.name = $('#new-activity-title').val()
+    newActivityObj.description = $('#new-activity-description')
     newActivityObj.image = $('#new-activity-image').val()
     newActivityObj.date = $('#new-activity-date').val()
     const country = $('#new-activity-country').val()
@@ -82,7 +83,7 @@ $('.container-fluid').on('click', '#submit-activity', async () => {
     const street = $('#new-activity-street').val()
     const number = $('#new-activity-number').val()
     const location = await getGeoLocation(country, city, street, number)
-    newActivityObj['location'] = {country, city, street, number, location}
+    newActivityObj['location'] = {country, city, street, number, lat:location.lat, lng: location.lng}
     newActivityObj.isHappening = true
     newActivityObj.tags = [...$("#new-activity-tag :selected")]
     for(let t in newActivityObj.tags){ newActivityObj.tags[t] = $(newActivityObj.tags[t]).data().id }
