@@ -14,7 +14,6 @@ class User {
     getUser = async (email, password) => {
         const userInDb = await $.get(`/user/${email}/${password}`)
         if(userInDb) {
-            console.log(userInDb.activities.creator, userInDb.activities.participant)
             if(userInDb.activities.creator.length > 0){
                 for(let i in userInDb.activities.creator){
                     const d = new Date(userInDb.activities.creator[i].date)
