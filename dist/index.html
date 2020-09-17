@@ -206,12 +206,11 @@
     </script>
 
     <script id='my-profile-template' type="text/x-handlebars-template">
-        <div class="profile-details">
-            <h1>My profile</h1>
-            <h3>Personal info</h3>
+        <div class="profile-details container">
+            <h1 class="text-center mb-5">My profile</h1>
             {{#each data}}
-                <div id="personal-info-container">
-                    <div id="user-name">
+                <div id="personal-info-container" class="text-center rounded shadow-sm">
+                    <div id="user-name" class="col-6">
                         <h4 for="firstName">First Name:</h4>
                         <p name="firstName">{{firstName}}</p>
                     
@@ -219,21 +218,21 @@
                         <p name="lastName">{{lastName}}</p>
                     </div>
     
-                    <div >
+                    <div class="col-6">
                         <h4 for="country">Country:</h4>
                         <p for="country"> {{address.country}} </p>
     
                         <h4 for="city">City:</h4>
                         <p name="city">{{address.city}}</p>
                     </div>
-                    <div>
+                    <div class="col-6">
                         <h4 for="street">Street:</h4>
                         <p name="street">{{address.street}} </p>
     
                         <h4 for="number">Number:</h4>
                         <p name="number">{{address.number}}</p>
                     </div>
-                    <div id="contact-info">
+                    <div id="contact-info" class="col-6">
                         <h4 for="phone">Phone:</h4>
                         <p name="phone"> {{contactDetails.phone}} </p>
     
@@ -242,13 +241,16 @@
                     </div>
                 </div>
             {{/each}}
+            <hr>
         </div>
-        <hr>
-        <h3>My activities</h3>
-        <h5>Created by me</h5>
-        <div class="creator-activities-container"></div>
-        <h5>Participant</h5>
-        <div class="participant-activities-container"></div>
+        <div class="container">
+           <h3>My activities</h3>
+            <h5>Created by me</h5>
+            <div class="creator-activities-container"></div>
+            <h5>Participant</h5>
+            <div class="participant-activities-container"></div> 
+        </div>
+        
     </script>
     <script id='edit-profile-template' type="text/x-handlebars-template">
     </script>
