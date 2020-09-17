@@ -69,18 +69,14 @@
   display: grid;
   grid-template-columns: repeat(5,1fr);
   grid-template-rows: repeat(5,1fr);
-  border: 5px solid transparent;
+  border: 0px solid transparent;
 }
 
 .card:hover{
   border: 5px solid #56baed;
-  color: #0c85c2;
-  
+  color: #0c85c2; 
 }
 
-.activity-card{
-  display: grid;
-}
 
 .title-wraper{
   grid-column: 1 / -1;
@@ -215,6 +211,7 @@ nav{
   /* grid-template-rows:repeat(2,1fr);  */
 }
 
+/* Find Activities */
 
 /* STRUCTURE */
   
@@ -274,18 +271,18 @@ nav{
     -webkit-animation-fill-mode:forwards;
     -moz-animation-fill-mode:forwards;
     animation-fill-mode:forwards;
-  
+    
     -webkit-animation-duration:1s;
     -moz-animation-duration:1s;
     animation-duration:1s;
-}
+  }
   
 .fadeIn.first {
   -webkit-animation-delay: 0.4s;
   -moz-animation-delay: 0.4s;
   animation-delay: 0.4s;
 }
-  
+
   .fadeIn.second {
     -webkit-animation-delay: 0.6s;
     -moz-animation-delay: 0.6s;
@@ -323,7 +320,7 @@ nav{
 .underlineHover:hover:after{
   width: 100%;
 }
-        
+
 @-webkit-keyframes fadeInDown {
   0% {
     opacity: 0;
@@ -351,8 +348,8 @@ nav{
 } 
 
 /* OTHERS */
-    
-    *:focus {
+
+*:focus {
         outline: none;
     } 
     
@@ -367,10 +364,14 @@ nav{
     justify-self: center;
     margin: 15px;
   }
-
+  
   #activies-render-container{
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     justify-content: center;
+    grid-gap: 2em;
   }
-
+  
+  .card-text{
+    z-index: 2;
+  }
