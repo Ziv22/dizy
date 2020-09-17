@@ -29,7 +29,7 @@ const loadLoggedIn = async function() {
 $('.container-fluid').on('click', '#log-in-submit', async function() {
     const   email = $('#email-login').val(),
             password = $('#password-login').val()
-    const newUser = await user.getUser(email, password)   
+    const newUser = await user.getUser(email, password) 
     if(newUser) {
         loadLoggedIn()
     }
@@ -109,6 +109,7 @@ $('.container-fluid').on('click', '#Home', async () => {
     await user.searchActivity({ tags: user.interests.map(i => i['_id']) })
     render.renderContent('#search-activities-template', '.content', user.searchedActivities)
 })
+
 $('.container-fluid').on('click', '#search-activity', async function(){
     const   name = $('#activity-name').val(),
             startDate = $('#startD').val(),
