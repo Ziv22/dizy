@@ -87,6 +87,13 @@ class User {
             queryParams += `name=${name}&`
         }
         const requiredActivities = await $.get(`/activity/?${queryParams}`)
+        for(let i in requiredActivities){
+            const d = new Date(requiredActivities[i].date)
+            var year = d.getFullYear();
+            var month = ("0" + (d.getMonth() + 1)).slice(-2);
+            var day = ("0" + d.getDate()).slice(-2);
+            requiredActivities[i].date = `${day}-${month}-${year}`
+        }
         this.searchedActivities = requiredActivities
     }
 
