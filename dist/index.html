@@ -18,7 +18,7 @@
     <script id='log-in-template' type="text/x-handlebars-template">
 
         <div id="login-container">
-            <div class="container-s fadeInDown">
+            <div class="container-s fadeInDown my-auto">
                 <div id="formContent">
                     <div class="fadeIn first">
                         <img src="./source/logo.png" id="icon" alt="User Icon"/>
@@ -146,15 +146,15 @@
                     </div>                    
                     <div id="search-activity"class="btn btn-primary">Search</div>
                 </div>
+                <hr>
         </div>
-            <hr>
             <div class="content">
             </div>
             {{/each}}
     </script>
 
     <script id='search-activities-template' type="text/x-handlebars-template">
-        <div class="activities-container">
+        <div class="container">
             {{#if data}}
                 <div id="activies-render-container">
                     {{#each data}}
@@ -180,7 +180,7 @@
     </script>
 
     <script id='user-activities-template' type="text/x-handlebars-template">
-        <div class="activities-container">
+        <div class="container">
             {{#if data}}
             <div id="activies-render-container">
                 {{#each data}}
