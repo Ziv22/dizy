@@ -364,7 +364,7 @@ nav{
     justify-self: center;
     margin: 15px;
   }
-  
+
   #activies-render-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, 18rem);
@@ -372,3 +372,4 @@ nav{
     grid-gap: 10px;
     margin: auto;
   }
+
