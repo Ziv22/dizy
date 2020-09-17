@@ -184,10 +184,11 @@
             {{#if data}}
             <div id="activies-render-container">
                 {{#each data}}
-                    <div class="card" style="width: 18rem;" data-id={{_id}}>
-                        <img src={{image}} class="card-img-top" alt="..." width="200px">
+                <div class="card" style="width: 18rem; background-image: url('{{image}}');" data-id={{_id}}>
+                    <h5 class="card-title">{{name}}</h5>
+                        <div class="title-wraper"></div>
+                        <!-- <img src={{image}} class="card-img-top" alt="..." width="200px"> -->
                         <div class="card-body">
-                            <h5 class="card-title">{{name}}</h5>
                             <p class="card-text">
                                 {{date}}<br>
                                 {{location.country}}, {{location.city}}<br>
