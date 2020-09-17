@@ -20,7 +20,8 @@ const ActivitySchema = new Schema({
     creator: {type: String}, //Creator Id
     participants: [{type: Schema.Types.ObjectId, ref:"User"}], //reference to: user-ids
     price: Number,
-    participantLimit: Number
+    participantLimit: Number,
+    description: String
 })
 
 const Activity = mongoose.model("Activity", ActivitySchema)
