@@ -390,11 +390,20 @@ nav{
     font-weight: bold;
   }
   .join-activity{
-    grid-column: 1 /-1;
+    grid-column: 3 /-1;
     height: 55%;
-    width: 25%;
     justify-self: right;
     grid-row: 1;
     z-index:2;
 
+  }
+  .show-on-map{
+    grid-column: 1 /4;
+    justify-self: left;
+    height: 55%;
+    grid-row: 1;
+    z-index:2;
+  }
+  #activity-on-map{
+    visibility: hidden;
   }
