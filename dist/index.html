@@ -106,11 +106,10 @@
 
     </script>
     <script id='welcome-page-template' type="text/x-handlebars-template">
-        <div class="fadeIn first">
-            <img src="./source/logo.png" id="icon" alt="User Icon" />
-        </div>
-        <div class="fadeIn second">
-        <div id="welcome-body">
+        <div class="container">
+            <div class="text-center">
+                <img src="./source/logo.png" id="icon" alt="User Icon" />
+            </div>
             {{#each data}}
             <nav>
                 <ul class="nav nav-pills">
@@ -126,35 +125,32 @@
                 </ul>
                 <h5 class="hello-user">Hello {{firstName}}</h5>
             </nav>
-            <header id="sticky-header">
+
                 <div id="search-div">
                     <div id="search-text-wraper">
-                        <input type="text" id="activity-name" class="form-control search-input" placeholder="Enter activity name or keywords...">
+                        <input type="text" id="activity-name" class="form-control mb-3" placeholder="Enter activity name or keywords...">
                     </div>
                     <div class="form-group dateSelect">
                         <label for="startD">From</label>
-                        <input type="date" class="form-control search-input" id="startD">
+                        <input type="date" class="form-control mb-3" id="startD">
                         <label for="endD">To</label>
-                        <input type="date" class="form-control search-input" id="endD">
+                        <input type="date" class="form-control" id="endD">
                     </div>
-                    <div class="interests-dropdown form-group tagsSelect">
+                    <div class="interests-dropdown form-group tagsSelect ml-2">
                         <label for="interests-select">Tags</label>
-                        <select name="interests-select" id="interests-select" multiple size="5">
+                        <select name="interests-select" id="interests-select" multiple size="7">
                             {{#each allInterests}}
                                 <option data-id='{{_id}}' class="interest-item" value="{{tagName}}">{{tagName}}</option>
                             {{/each}}
                         </select>
                     </div>                    
                     <div id="search-activity"class="btn btn-primary">Search</div>
-                    </div>
                 </div>
-            </header>
+        </div>
             <hr>
             <div class="content">
             </div>
             {{/each}}
-        </div>
-        
     </script>
 
     <script id='search-activities-template' type="text/x-handlebars-template">
