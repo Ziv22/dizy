@@ -151,12 +151,7 @@ a {
 }
 /* ------ welcome page style -------*/
 
-#welcome-body {
-  display: grid;
-  grid-template:'n '
-                'h '
-                'c '
-}
+
 nav{
   grid-area: n;
   display: grid;
@@ -177,9 +172,7 @@ nav{
   height: 100%;
   color: white;
 }
-header {
-  grid-area: h;
-}
+
 #search-div{
   display:grid;
   grid-template-columns:repeat(2,1fr);
