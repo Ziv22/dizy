@@ -75,7 +75,7 @@ $('.container-fluid').on('click', '#submit-sign-up', async function() {
 $('.container-fluid').on('click', '#submit-activity', async () => {
     const newActivityObj = {}
     newActivityObj.name = $('#new-activity-title').val()
-    newActivityObj.description = $('#new-activity-description')
+    newActivityObj.description = $('#new-activity-description').val()
     newActivityObj.image = $('#new-activity-image').val()
     newActivityObj.date = $('#new-activity-date').val()
     const country = $('#new-activity-country').val()
@@ -90,7 +90,8 @@ $('.container-fluid').on('click', '#submit-activity', async () => {
     newActivityObj.creator = user.id
     newActivityObj.price = $('#new-activity-price').val()
     newActivityObj.participantsLimit = $('#new-activity-participants').val()
-    const avtivitiyAdded = await user.createActivity(newActivityObj)
+    console.log(newActivityObj)
+    await user.createActivity(newActivityObj)
     await user.updateUserData(user.activities)
     render.renderActivitiyAdded(newActivityObj)
 })

@@ -14,6 +14,25 @@ class User {
     getUser = async (email, password) => {
         const userInDb = await $.get(`/user/${email}/${password}`)
         if(userInDb) {
+            console.log(userInDb.activities.creator, userInDb.activities.participant)
+            if(userInDb.activities.creator.length > 0){
+                for(let i in userInDb.activities.creator){
+                    const d = new Date(userInDb.activities.creator[i].date)
+                    var year = d.getFullYear();
+                    var month = ("0" + (d.getMonth() + 1)).slice(-2);
+                    var day = ("0" + d.getDate()).slice(-2);
+                    userInDb.activities.creator[i].date = `${day}-${month}-${year}`
+                }
+            }
+            if(userInDb.activities.participant.length > 0){
+                for(let i in userInDb.activities.participant){
+                    const d = new Date(userInDb.activities.participant[i].date)
+                    var year = d.getFullYear();
+                    var month = ("0" + (d.getMonth() + 1)).slice(-2);
+                    var day = ("0" + d.getDate()).slice(-2);
+                    userInDb.activities.participant[i].date = `${day}-${month}-${year}`
+                }
+            }
             this.saveUserDetails(userInDb)
             this.id = userInDb['_id']
             return true
