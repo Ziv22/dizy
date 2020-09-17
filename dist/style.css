@@ -74,7 +74,7 @@
 
 .card:hover{
   border: 5px solid #56baed;
-  color: #0c85c2; 
+  color: #0c85c2;
 }
 
 
@@ -372,4 +372,14 @@ nav{
     grid-gap: 10px;
     margin: auto;
   }
+
+  .card-body{
+   grid-column: 1 / -1;
+   grid-row: 2 / 5;
+  }
+  .card-text{
+    width:100%;
+    font-weight: bold;
+  }
+
 
