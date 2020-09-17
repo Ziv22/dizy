@@ -3,73 +3,110 @@
 
 <head>
     <style>
-        /* Set the size of the div element that contains the map */
         #map {
             height: 400px;
-            width: 100%;
+            width: 60%;
+            margin: auto;
+        }
+        #title{
+            left: 80px;
+            margin-left: auto;
+            margin: auto;
         }
     </style>
 </head>
 
 <body>
-    <h3>My Google Maps Demo</h3>
-    <button id="show-map">Show</button>
-    <!--The div element for the map -->
+    <h3 id="title">Activities near you!</h3>
     <div id="map">
     </div>
 
-    <!-- <script src="../node_modules/jquery/dist/jquery.js"></script> -->
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
     <script>
         function initMap() {
-    var options = {
-        zoom: 8,
-        center: {
-            lat: 32.0946603,
-            lng: 34.7752426
-        }
-    }
-    var map = new google.maps.Map(
-        document.getElementById('map'), options);
+            var options = {
+                zoom: 8,
+                center: {
+                    lat: [{type: Schema.Types.ObjectId, ref:"User"}],
+                    lng: [{type: Schema.Types.ObjectId, ref:"User"}]
+                }
+            }
+            var map = new google.maps.Map(
+                document.getElementById('map'), options);
 
-    var markers = [
-        {
-            coords: { lat: 32.0946603, lng: 34.7752426 },
-            // iconImage: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachFlag.png",
-            content: '<h1>Falafel Workshop<h1>'
-        },
-        {
-            coords: { lat: 32.16262, lng: 34.886691 }
-        },
+            var markers = [
+                {
+                    coords: {
+                        lat: 30.986003,
+                        lng: 34.932547
+                    },
+                    // iconImage: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachFlag.png",
+                    content: '<h1>baglibagli<h1>'
+                },
+                {
+                    coords: { lat: 32.16262, lng: 34.886691 },
+                    content: '<h1>boogliboo<h1>, <p>Just as it sounds, boogliboo</p>'
+                },
 
-        {
-            coords: {
-                lat: 35.986003, lng: 36.932547
+                {
+                    coords: {
+                        lat: 31.965329,
+                        lng: 35.050868
+                    },
+                    content: '<h1>Gogoim<h1><p>A classic gogo competition</p>'
+                },
+                {
+                    coords: {
+                        lat: 30.916003,
+                        lng: 34.932547
+                    },
+                    content: '<h1>hhhhhhh<h1> <p>A laugh workshop that will make you yell hhhhh</p>'
+                },
+                {
+                    coords: {
+                        lat: 30.986003,
+                        lng: 34.932547
+                    },
+                    content: '<h1>kloom lo azoov<h1> <p>A traditional ride through the poorest places in tel-aviv!</p>'
+                },
+                {
+                    coords: {
+                        lat: 30.986003,
+                        lng: 34.938547
+                    },
+                    content: '<h1>masheoo<h1><p>Just another marker for the map</p>'
+                },
+                {
+                    coords: {
+                        lat: 30.986003,
+                        lng: 34.932547
+                    },
+                    content: '<h1>Painting huh?<h1>,<p>Think you can paint huh?</p>'
+                },
+            ];
+
+            for (let i = 0; i < markers.length; i++)
+                addMarker(markers[i])
+
+            function addMarker(props) {
+                var marker = new google.maps.Marker({
+                    position: props.coords,
+                    map: map,
+                });
+                if (props.iconImage) {
+                    marker.setIcon(props.iconImage)
+                }
+                if (props.content) {
+                    var infoWindow = new google.maps.InfoWindow({
+                        content: props.content
+                    });
+
+                    marker.addListener("click", function () {
+                        infoWindow.open(map, marker);
+                    })
+                }
             }
         }
-    ];
-
-            for (let i = 0; i< markers.length; i++)
-            addMarker(markers[i])
-
-    function addMarker(props) {
-        var marker = new google.maps.Marker({
-            position: props.coords,
-            map: map,
-        });
-        if (props.iconImage) {
-            marker.setIcon(props.iconImage)
-        }
-        if (props.content) {
-            var infoWindow = new google.maps.InfoWindow({
-                content: props.content
-            }); 
-
-            marker.addListener("click" , function(){
-                infoWindow.open(map,marker);
-            })
-        }
-    }
-}
     </script>
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCYYt3NuOfQx0nvwYZpiC0eMqDcGFf4Io&callback=initMap">
@@ -80,8 +117,8 @@
 </html>
 
 
-//option to add marker through map.
+<!-- //option to add marker through map.
 // google.maps.event.addListener(map,'click',
 // function(event){
-//     addMarker({coords: event.latLng})
-// })
+// addMarker({coords: event.latLng})
+// }) -->
