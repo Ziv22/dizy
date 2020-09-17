@@ -364,9 +364,11 @@ nav{
     margin: 15px;
   }
 
-  #activies-render-container{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    justify-content: center;
-  }
 
+  #activies-render-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 18rem);
+    justify-content: center;
+    grid-gap: 10px;
+    margin: auto;
+  }
