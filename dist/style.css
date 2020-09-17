@@ -69,13 +69,17 @@
   display: grid;
   grid-template-columns: repeat(5,1fr);
   grid-template-rows: repeat(5,1fr);
-  border: 0px solid transparent;
+  border: 5px solid transparent;
 }
 
 .card:hover{
   border: 5px solid #56baed;
   color: #0c85c2;
   
+}
+
+.activity-card{
+  display: grid;
 }
 
 .title-wraper{
