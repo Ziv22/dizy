@@ -11,7 +11,7 @@ const getGeoLocation = async function(country, city, street, number) {
     }
     return objToSend
 }
-
+// my-profile-template
 const loadPage = async function() {
     await user.getAllInterests()
     render.renderContent('#log-in-template', '.container-fluid', [user])
